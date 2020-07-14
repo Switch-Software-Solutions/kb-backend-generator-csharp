@@ -1,0 +1,30 @@
+﻿<TEMPLATE_FILE>
+  <MAIN>
+    <![CDATA[
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using Core.Models;
+using Core.Repositories;
+
+namespace Data.Repositories
+{
+    public class [¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!]Repository : Repository<[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!]>, I[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!]Repository
+    {
+        public [¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!]Repository([¡WILDCARD!]{ "type": "WILCARD", "name": "PROYECT" }[¡WILDCARD!]DbContext context) 
+            : base(context)
+        { }
+     
+        /* ADD HERE IMPLEMENTATION DEFINED IN IRepositories */
+
+        private [¡WILDCARD!]{ "type": "WILCARD", "name": "PROYECT" }[¡WILDCARD!]DbContext [¡WILDCARD!]{ "type": "WILCARD", "name": "PROYECT" }[¡WILDCARD!]DbContext
+        {
+            get { return Context as [¡WILDCARD!]{ "type": "WILCARD", "name": "PROYECT" }[¡WILDCARD!]DbContext; }
+        }
+    }
+}
+]]>
+  </MAIN>
+  <TEMPLATES>
+  </TEMPLATES>
+</TEMPLATE_FILE>

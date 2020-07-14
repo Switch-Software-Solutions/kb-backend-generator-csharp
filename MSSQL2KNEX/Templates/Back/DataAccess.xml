@@ -1,0 +1,60 @@
+﻿<TEMPLATE_FILE>
+  <MAIN>
+    <![CDATA[
+var knex = require('../../../../knexconfig');
+
+function selectedFields(includId) {
+    let result = [];
+  
+    result = [
+        [¡WILDCARD!]{ "type": "TEMPLATE", "name": "SELECTED_FILES_ROW", "repeatBy": "COLUMN_NAME" }[¡WILDCARD!]
+    ];
+
+    if (includId) {
+        result.unshift('dbo.[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME", "format": "TO_LOWER" }[¡WILDCARD!].id as id');
+    }
+
+    return result;
+}
+
+async function list(parameters, trx) {
+    return await knex('dbo.[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME", "format": "TO_LOWER" }[¡WILDCARD!]').transacting(trx).where(parameters.filter).select(selectedFields(true));
+}
+
+async function create(parameters, trx) {
+    let result = await knex('dbo.[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME", "format": "TO_LOWER" }[¡WILDCARD!]').transacting(trx).insert(parameters.[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME", "format": "TO_LOWER" }[¡WILDCARD!]Object).returning('id');
+    return result[0]
+}
+
+async function read(parameters, trx) {
+    result = await knex('dbo.[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME", "format": "TO_LOWER" }[¡WILDCARD!]').transacting(trx).where('id', parameters.id).select(selectedFields(true));
+    return result[0] || result;
+}
+
+async function update(parameters, trx) {
+    delete parameters.[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME", "format": "TO_LOWER" }[¡WILDCARD!]Object.id;
+    return await knex('dbo.[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME", "format": "TO_LOWER" }[¡WILDCARD!]').transacting(trx).where('id', parameters.id).update(parameters.[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME", "format": "TO_LOWER" }[¡WILDCARD!]Object);
+}
+
+async function remove(parameters, trx) {
+    return await knex('dbo.[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME", "format": "TO_LOWER" }[¡WILDCARD!]').transacting(trx).where('id', parameters.id).del();
+}
+
+module.exports = {
+    list,
+    create,
+    read,
+    update,
+    remove,
+    selectedFields
+};
+	]]>
+  </MAIN>
+  <TEMPLATES>
+    <SELECTED_FILES_ROW>
+        <![CDATA[
+        'dbo.[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME", "format": "TO_LOWER" }[¡WILDCARD!].[¡WILDCARD!]{ "type": "WILCARD", "name": "COLUMN_NAME" }[¡WILDCARD!] as [¡WILDCARD!]{ "type": "WILCARD", "name": "COLUMN_NAME" }[¡WILDCARD!]', 
+        ]]>
+    </SELECTED_FILES_ROW>
+  </TEMPLATES>
+</TEMPLATE_FILE>

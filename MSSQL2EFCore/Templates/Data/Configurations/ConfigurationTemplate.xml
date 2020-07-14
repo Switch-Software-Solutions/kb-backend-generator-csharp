@@ -1,0 +1,36 @@
+﻿<TEMPLATE_FILE>
+  <MAIN>
+    <![CDATA[
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Core.Models;
+
+namespace Data.Configurations
+{
+    public class [¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!]Configuration : IEntityTypeConfiguration<[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!]>
+    {
+        public void Configure(EntityTypeBuilder<[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!]> builder)
+        {
+            [¡WILDCARD!]{ "type": "TEMPLATE", "name": "CONFIGURATIONS_FIELDS", "repeatBy": "COLUMN_NAME" }[¡WILDCARD!]
+            [¡WILDCARD!]{ "type": "TEMPLATE", "name": "DEPENDENT_CONFIGURATIONS", "repeatBy": "DEPENDENCIES_TABLE_NAME" }[¡WILDCARD!]
+
+            builder
+                .ToTable("[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!]");
+        }
+    }
+}
+]]>
+  </MAIN>
+  <TEMPLATES>
+    <CONFIGURATIONS_FIELDS>
+      <![CDATA[
+         [¡WILDCARD!]{ "type": "WILCARD", "name": "DATA.CONFIGURATIONS_FIELDS" }[¡WILDCARD!];
+      	]]>
+    </CONFIGURATIONS_FIELDS>
+    <DEPENDENT_CONFIGURATIONS>
+      <![CDATA[
+         [¡WILDCARD!]{ "type": "WILCARD", "name": "DATA.DEPENDENT_CONFIGURATIONS" }[¡WILDCARD!];
+      	]]>
+    </DEPENDENT_CONFIGURATIONS>
+  </TEMPLATES>
+</TEMPLATE_FILE>

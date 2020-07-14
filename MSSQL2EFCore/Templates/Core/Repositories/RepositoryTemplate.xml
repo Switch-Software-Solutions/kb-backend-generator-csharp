@@ -1,0 +1,42 @@
+﻿<TEMPLATE_FILE>
+  <MAIN>
+    <![CDATA[
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using Core.Models;
+
+namespace Core.Repositories
+{
+    public interface I[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!]Repository : IRepository<[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!]>
+    {
+      /* ADD HERE PARTICULAR ACTIONS TO ENTITY
+      For example:
+      Task<Music> GetByNameBetweenDatesAsync(string name, dateTime from, dateTime to);
+      */
+    }
+}
+]]>
+  </MAIN>
+  <TEMPLATES>
+    <MODEL_FIELDS>
+      <![CDATA[
+       public [¡WILDCARD!]{ "type": "WILCARD", "name": "DATA_TYPE" }[¡WILDCARD!] [¡WILDCARD!]{ "type": "WILCARD", "name": "COLUMN_NAME" }[¡WILDCARD!] { get; set; }
+      	]]>
+    </MODEL_FIELDS>
+    <DEPENDENCIES_MODEL_FIELDS>
+      <![CDATA[
+       public [¡WILDCARD!]{ "type": "WILCARD", "name": "DATA_TYPE_DEPENDENCIES" }[¡WILDCARD!] [¡WILDCARD!]{ "type": "WILCARD", "name": "COLUMN_NAME", "transform": "ID(.+)$", "transformGroup": "1" }[¡WILDCARD!] { get; set; }
+      	]]>
+    </DEPENDENCIES_MODEL_FIELDS>
+    <DEPENDENT_MODEL_FIELDS>
+      <![CDATA[
+       public List<[¡WILDCARD!]{ "type": "WILCARD", "name": "DATA_TYPE" }[¡WILDCARD!]> [¡WILDCARD!]{ "type": "WILCARD", "name": "COLUMN_NAME" }[¡WILDCARD!]List { get; set; }
+      	]]>
+    </DEPENDENT_MODEL_FIELDS>
+    <DEPENDENT_MODEL_FIELDS_NEW>
+      <![CDATA[
+       [¡WILDCARD!]{ "type": "WILCARD", "name": "COLUMN_NAME" }[¡WILDCARD!]List = new List<[¡WILDCARD!]{ "type": "WILCARD", "name": "DATA_TYPE" }[¡WILDCARD!]>();
+      	]]>
+    </DEPENDENT_MODEL_FIELDS_NEW>
+  </TEMPLATES>
+</TEMPLATE_FILE>

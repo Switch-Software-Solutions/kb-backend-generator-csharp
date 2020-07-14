@@ -1,0 +1,64 @@
+﻿<TEMPLATE_FILE>
+  <MAIN>
+    <![CDATA[
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using Core;
+using Core.Models;
+using Core.Services;
+
+namespace Services
+{
+    public class [¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!]Service : I[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!]Service
+    {
+        private readonly IUnitOfWork _unitOfWork;
+        public [¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!]Service(IUnitOfWork unitOfWork)
+        {
+            this._unitOfWork = unitOfWork;
+        }
+
+        public async Task<[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!]> Create([¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!] new[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!])
+        {
+            await _unitOfWork.[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!]Repository
+                .AddAsync(new[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!]);
+            await _unitOfWork.CommitAsync();                    
+            
+            return new[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!];
+        }
+
+        public async Task Delete([¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!] [¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME", "format": "FIRST_LETTER_TO_LOWER" }[¡WILDCARD!])
+        {
+            _unitOfWork.[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!]Repository.Remove([¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME", "format": "FIRST_LETTER_TO_LOWER" }[¡WILDCARD!]);
+
+            await _unitOfWork.CommitAsync();
+        }
+
+        public async Task<IEnumerable<[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!]>> GetAll()
+        {
+            return await _unitOfWork.[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!]Repository.GetAllAsync();
+        }
+
+        public async Task<[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!]> GetByID(int id)
+        {
+            return await _unitOfWork.[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!]Repository.GetByIDAsync(id);
+        }
+
+        public async Task Update([¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!] [¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME", "format": "FIRST_LETTER_TO_LOWER" }[¡WILDCARD!]ToBeUpdated, [¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!] [¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME", "format": "FIRST_LETTER_TO_LOWER" }[¡WILDCARD!])
+        {
+            [¡WILDCARD!]{ "type": "TEMPLATE", "name": "MODEL_FIELDS", "repeatBy": "COLUMN_NAME" }[¡WILDCARD!]
+        
+            await _unitOfWork.CommitAsync();
+        }
+    }
+}
+
+]]>
+  </MAIN>
+  <TEMPLATES>
+    <MODEL_FIELDS>
+      <![CDATA[
+       [¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME", "format": "FIRST_LETTER_TO_LOWER" }[¡WILDCARD!]ToBeUpdated.[¡WILDCARD!]{ "type": "WILCARD", "name": "COLUMN_NAME" }[¡WILDCARD!] = [¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME", "format": "FIRST_LETTER_TO_LOWER" }[¡WILDCARD!].[¡WILDCARD!]{ "type": "WILCARD", "name": "COLUMN_NAME" }[¡WILDCARD!];
+      	]]>
+    </MODEL_FIELDS>
+  </TEMPLATES>
+</TEMPLATE_FILE>

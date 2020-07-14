@@ -1,0 +1,26 @@
+﻿<TEMPLATE_FILE>
+  <MAIN>
+    <![CDATA[
+using System;
+using System.Threading.Tasks;
+using Core.Repositories;
+
+namespace Core
+{
+    public interface IUnitOfWork : IDisposable
+    {
+        [¡WILDCARD!]{ "type": "TEMPLATE", "name": "REPOSITORIES", "repeatBy": "COLUMN_NAME" }[¡WILDCARD!]
+   
+        Task<int> CommitAsync();
+    }
+}
+]]>
+  </MAIN>
+  <TEMPLATES>
+    <REPOSITORIES>
+      <![CDATA[
+        I[¡WILDCARD!]{ "type": "WILCARD", "name": "COLUMN_NAME" }[¡WILDCARD!]Repository [¡WILDCARD!]{ "type": "WILCARD", "name": "COLUMN_NAME" }[¡WILDCARD!]Repository { get; }
+      	]]>
+    </REPOSITORIES>
+  </TEMPLATES>
+</TEMPLATE_FILE>

@@ -1,0 +1,44 @@
+﻿<TEMPLATE_FILE>
+  <MAIN>
+    <![CDATA[
+// knex migrate:make create_[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME", "format": "TO_LOWER" }[¡WILDCARD!]
+
+var table_name = '[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME", "format": "TO_LOWER" }[¡WILDCARD!]';
+
+var table = (table) => {
+    table.[¡WILDCARD!]{ "type": "TEMPLATE", "name": "SELECTED_FILES_ROW", "repeatBy": "COLUMN_NAME" }[¡WILDCARD!]
+    table.increments('ID').primary();
+    table.string('name', 50).notNullable();
+    table.string('description', 250).notNullable();
+};
+
+exports.up = function (knex, Promise) {
+    return knex.schema.createTable(table_name, table)
+        .then(function () {
+            console.log(`${table_name} Table created`);
+        })
+        .catch(function () {
+            console.log(`There was an error with the ${table_name} table`);
+        })
+};
+
+exports.down = function (knex, Promise) {
+    return knex.schema
+        .dropTable(table_name, table)
+        .then(() => {
+            console.log(`${table_name} table deleted`);
+        })
+        .catch(() => {
+            console.log(`there was an error deleting ${table_name} table`);
+        })
+};
+	]]>
+  </MAIN>
+  <TEMPLATES>
+    <SELECTED_FILES_ROW>
+        <![CDATA[
+        'dbo.[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME", "format": "TO_LOWER" }[¡WILDCARD!].[¡WILDCARD!]{ "type": "WILCARD", "name": "COLUMN_NAME" }[¡WILDCARD!] as [¡WILDCARD!]{ "type": "WILCARD", "name": "COLUMN_NAME" }[¡WILDCARD!]', 
+        ]]>
+    </SELECTED_FILES_ROW>
+  </TEMPLATES>
+</TEMPLATE_FILE>

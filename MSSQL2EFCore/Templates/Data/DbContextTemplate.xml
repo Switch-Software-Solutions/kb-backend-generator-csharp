@@ -1,0 +1,39 @@
+﻿<TEMPLATE_FILE>
+  <MAIN>
+    <![CDATA[
+using Microsoft.EntityFrameworkCore;
+using Core.Models;
+using Data.Configurations;
+
+namespace Data
+{
+    public class [¡WILDCARD!]{ "type": "WILCARD", "name": "PROYECT" }[¡WILDCARD!]DbContext : DbContext
+    {
+        [¡WILDCARD!]{ "type": "TEMPLATE", "name": "DB_SETS", "repeatBy": "COLUMN_NAME" }[¡WILDCARD!]
+
+        public [¡WILDCARD!]{ "type": "WILCARD", "name": "PROYECT" }[¡WILDCARD!]DbContext(DbContextOptions<[¡WILDCARD!]{ "type": "WILCARD", "name": "PROYECT" }[¡WILDCARD!]DbContext> options)
+            : base(options)
+        { }
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            [¡WILDCARD!]{ "type": "TEMPLATE", "name": "CONFIGURATIONS", "repeatBy": "COLUMN_NAME" }[¡WILDCARD!]
+        }
+    }
+}
+]]>
+  </MAIN>
+  <TEMPLATES>
+    <DB_SETS>
+      <![CDATA[
+        public DbSet<[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!]> [¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!]Set { get; set; }
+      	]]>
+    </DB_SETS>
+    <CONFIGURATIONS>
+      <![CDATA[
+             builder
+                .ApplyConfiguration(new [¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!]Configuration());
+      ]]>
+    </CONFIGURATIONS>
+  </TEMPLATES>
+</TEMPLATE_FILE>
