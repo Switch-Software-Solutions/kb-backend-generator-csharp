@@ -1,0 +1,112 @@
+﻿<TEMPLATE_FILE>
+  <MAIN>
+    <![CDATA[
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
+using Api.Resources;
+using Api.Validations;
+using Core.Models;
+using Core.Services;
+
+namespace Api.Controllers
+{
+    [Route("api/[controller]")]
+    [ApiController]
+    public class [¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!]Controller : ControllerBase
+    {
+        private readonly I[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!]Service _[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME", "format": "FIRST_LETTER_TO_LOWER" }[¡WILDCARD!]Service;
+        private readonly IMapper _mapper;
+        
+        public [¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!]Controller(I[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!]Service [¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME", "format": "FIRST_LETTER_TO_LOWER" }[¡WILDCARD!]Service, IMapper mapper)
+        {
+            this._mapper = mapper;
+            this._[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME", "format": "FIRST_LETTER_TO_LOWER" }[¡WILDCARD!]Service = [¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME", "format": "FIRST_LETTER_TO_LOWER" }[¡WILDCARD!]Service;
+        }
+
+        [HttpGet("")]
+        public async Task<ActionResult<IEnumerable<[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!]Resource>>> GetAll()
+        {
+            var [¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME", "format": "FIRST_LETTER_TO_LOWER" }[¡WILDCARD!]Collection = await _[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME", "format": "FIRST_LETTER_TO_LOWER" }[¡WILDCARD!]Service.GetAll();
+            var [¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME", "format": "FIRST_LETTER_TO_LOWER" }[¡WILDCARD!]Resources = _mapper.Map<IEnumerable<[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!]>, IEnumerable<[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!]Resource>>([¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME", "format": "FIRST_LETTER_TO_LOWER" }[¡WILDCARD!]Collection);
+
+            return Ok([¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME", "format": "FIRST_LETTER_TO_LOWER" }[¡WILDCARD!]Resources);
+        }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!]Resource>> GetByID(int id)
+        {
+            var [¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME", "format": "FIRST_LETTER_TO_LOWER" }[¡WILDCARD!] = await _[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME", "format": "FIRST_LETTER_TO_LOWER" }[¡WILDCARD!]Service.GetByID(id);
+            var [¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME", "format": "FIRST_LETTER_TO_LOWER" }[¡WILDCARD!]Resource = _mapper.Map<[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!], [¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!]Resource>([¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME", "format": "FIRST_LETTER_TO_LOWER" }[¡WILDCARD!]);
+
+            return Ok([¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME", "format": "FIRST_LETTER_TO_LOWER" }[¡WILDCARD!]Resource);
+        }
+
+        [HttpPost("")]
+        public async Task<ActionResult<[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!]Resource>> Create([FromBody] [¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!]Resource save[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!]Resource)
+        {
+            var validator = new Save[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!]ResourceValidator();
+            var validationResult = await validator.ValidateAsync(save[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!]Resource);
+
+            if (!validationResult.IsValid)
+                return BadRequest(validationResult.Errors); // this needs refining, but for demo it is ok
+
+            var [¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME", "format": "FIRST_LETTER_TO_LOWER" }[¡WILDCARD!]ToCreate = _mapper.Map<[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!]Resource, [¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!]>(save[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!]Resource);
+
+            var new[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!] = await _[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME", "format": "FIRST_LETTER_TO_LOWER" }[¡WILDCARD!]Service.Create([¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME", "format": "FIRST_LETTER_TO_LOWER" }[¡WILDCARD!]ToCreate);
+
+            var [¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME", "format": "FIRST_LETTER_TO_LOWER" }[¡WILDCARD!] = await _[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME", "format": "FIRST_LETTER_TO_LOWER" }[¡WILDCARD!]Service.GetByID(new[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!].ID);
+
+            var [¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME", "format": "FIRST_LETTER_TO_LOWER" }[¡WILDCARD!]Resource = _mapper.Map<[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!], [¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!]Resource>([¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME", "format": "FIRST_LETTER_TO_LOWER" }[¡WILDCARD!]);
+
+            return Ok([¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME", "format": "FIRST_LETTER_TO_LOWER" }[¡WILDCARD!]Resource);
+        }
+
+        [HttpPut("{id}")]
+        public async Task<ActionResult<[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!]Resource>> Update(int id, [FromBody] [¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!]Resource save[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!]Resource)
+        {
+            var validator = new Save[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!]ResourceValidator();
+            var validationResult = await validator.ValidateAsync(save[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!]Resource);
+            
+            if (!validationResult.IsValid)
+                return BadRequest(validationResult.Errors); // this needs refining, but for demo it is ok
+
+            var [¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME", "format": "FIRST_LETTER_TO_LOWER" }[¡WILDCARD!]ToBeUpdated = await _[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME", "format": "FIRST_LETTER_TO_LOWER" }[¡WILDCARD!]Service.GetByID(id);
+
+            if ([¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME", "format": "FIRST_LETTER_TO_LOWER" }[¡WILDCARD!]ToBeUpdated == null)
+                return NotFound();
+
+            var [¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME", "format": "FIRST_LETTER_TO_LOWER" }[¡WILDCARD!] = _mapper.Map<[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!]Resource, [¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!]>(save[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!]Resource);
+
+            await _[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME", "format": "FIRST_LETTER_TO_LOWER" }[¡WILDCARD!]Service.Update([¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME", "format": "FIRST_LETTER_TO_LOWER" }[¡WILDCARD!]ToBeUpdated, [¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME", "format": "FIRST_LETTER_TO_LOWER" }[¡WILDCARD!]);
+
+            var updated[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!] = await _[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME", "format": "FIRST_LETTER_TO_LOWER" }[¡WILDCARD!]Service.GetByID(id);
+
+            var updated[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!]Resource = _mapper.Map<[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!], [¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!]Resource>(updated[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!]);
+
+            return Ok(updated[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!]Resource);
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            if (id == 0)
+                return BadRequest();
+            
+            var [¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME", "format": "FIRST_LETTER_TO_LOWER" }[¡WILDCARD!] = await _[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME", "format": "FIRST_LETTER_TO_LOWER" }[¡WILDCARD!]Service.GetByID(id);
+
+            if ([¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME", "format": "FIRST_LETTER_TO_LOWER" }[¡WILDCARD!] == null)
+                return NotFound();
+
+            await _[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME", "format": "FIRST_LETTER_TO_LOWER" }[¡WILDCARD!]Service.Delete([¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME", "format": "FIRST_LETTER_TO_LOWER" }[¡WILDCARD!]);
+
+            return NoContent();
+        }
+    }
+}
+]]>
+  </MAIN>
+  <TEMPLATES>
+  </TEMPLATES>
+</TEMPLATE_FILE>

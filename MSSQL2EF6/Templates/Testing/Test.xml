@@ -1,0 +1,101 @@
+﻿<TEMPLATE_FILE>
+  <MAIN>
+    <![CDATA[
+using System;
+
+namespace [¡WILDCARD!]{ "type": "WILCARD", "name": "PROYECT" }[¡WILDCARD!].Test
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            //args = new string[] { "attributetype", "l" };
+            if (HandleArgs(args))
+            {
+                IEntityHandle entityHandle = GetEntity(args);
+
+                PerfromeCRUDAction(entityHandle, args);
+            }
+            //Console.ReadKey();
+        }
+
+        private static void PerfromeCRUDAction(IEntityHandle entityHandle, string[] args)
+        {
+            switch (args[1].ToLower())
+            {
+                case "c":
+                    entityHandle.Create();
+                    break;
+                case "r":
+                    entityHandle.Read();
+                    break;
+                case "u":
+                    entityHandle.Update();
+                    break;
+                case "d":
+                    entityHandle.Delete();
+                    break;
+                case "l":
+                    entityHandle.List();
+                    break;
+                case "fl":
+                    entityHandle.FilterList(GetFilterArgs(args));
+                    break;               
+                default:
+                    Environment.Exit(0);
+                    break;
+            }
+        }
+        
+        private static Dictionary<string, object> GetFilterArgs(string[] args)
+        {
+            Dictionary<string, object> filter = new Dictionary<string, object>();
+
+            int index = 2;
+            while (index < args.Length)
+            {
+                string[] keyValue = args[index].Split('=');
+                filter.Add(keyValue[0], keyValue[1]);
+                index++;
+            }
+
+            return filter;
+        }
+
+        static IEntityHandle GetEntity(string[] args) 
+        {
+            IEntityHandle result;
+
+            switch (args[0].ToLower())
+            {
+                [¡WILDCARD!]{ "type": "TEMPLATE", "name": "HANDLERS", "repeatBy": "TABLE_NAME" }[¡WILDCARD!]
+                default:
+                    result = null;
+                    break;
+            }
+
+            return result;
+        }
+
+        private static bool HandleArgs(string[] args)
+        {
+            bool result = true;
+
+            result = result && args.Length > 1;
+
+            return result;
+        }
+    }
+}
+]]>
+  </MAIN>
+  <TEMPLATES>
+    <HANDLERS>
+      <![CDATA[
+             case "[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME", "format": "TO_LOWER" }[¡WILDCARD!]":
+                result = new [¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!]Handler();
+                break;
+      ]]>
+    </HANDLERS>
+  </TEMPLATES>
+</TEMPLATE_FILE>

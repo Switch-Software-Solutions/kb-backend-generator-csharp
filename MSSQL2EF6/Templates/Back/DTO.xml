@@ -1,0 +1,45 @@
+﻿<TEMPLATE_FILE>
+  <MAIN>
+    <![CDATA[
+using System;
+using System.Collections.Generic;
+
+namespace [¡WILDCARD!]{ "type": "WILCARD", "name": "PROYECT" }[¡WILDCARD!].DTO 
+{
+    public class [¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!] : IDObject
+    {
+      [¡WILDCARD!]{ "type": "TEMPLATE", "name": "MODEL_FIELDS", "repeatBy": "COLUMN_NAME" }[¡WILDCARD!]
+      [¡WILDCARD!]{ "type": "TEMPLATE", "name": "DEPENDENT_MODEL_FIELDS", "repeatBy": "DEPENDENT_TABLE_NAME" }[¡WILDCARD!]
+      [¡WILDCARD!]{ "type": "TEMPLATE", "name": "DEPENDENCIES_MODEL_FIELDS", "repeatBy": "DEPENDENCIES_TABLE_NAME" }[¡WILDCARD!]
+      
+      public [¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!]()
+      {
+        [¡WILDCARD!]{ "type": "TEMPLATE", "name": "DEPENDENT_MODEL_FIELDS_NEW", "repeatBy": "DEPENDENT_TABLE_NAME" }[¡WILDCARD!]
+      }
+    }
+}
+]]>
+  </MAIN>
+  <TEMPLATES>
+    <MODEL_FIELDS>
+      <![CDATA[
+       public [¡WILDCARD!]{ "type": "WILCARD", "name": "DATA_TYPE" }[¡WILDCARD!] [¡WILDCARD!]{ "type": "WILCARD", "name": "COLUMN_NAME" }[¡WILDCARD!] { get; set; }
+      	]]>
+    </MODEL_FIELDS>
+    <DEPENDENCIES_MODEL_FIELDS>
+      <![CDATA[
+       public [¡WILDCARD!]{ "type": "WILCARD", "name": "DATA_TYPE_DEPENDENCIES" }[¡WILDCARD!] [¡WILDCARD!]{ "type": "WILCARD", "name": "COLUMN_NAME", "transform": "ID(.+)$", "transformGroup": "1" }[¡WILDCARD!] { get; set; }
+      	]]>
+    </DEPENDENCIES_MODEL_FIELDS>
+    <DEPENDENT_MODEL_FIELDS>
+      <![CDATA[
+       public List<[¡WILDCARD!]{ "type": "WILCARD", "name": "DATA_TYPE" }[¡WILDCARD!]> [¡WILDCARD!]{ "type": "WILCARD", "name": "COLUMN_NAME" }[¡WILDCARD!]List { get; set; }
+      	]]>
+    </DEPENDENT_MODEL_FIELDS>
+    <DEPENDENT_MODEL_FIELDS_NEW>
+      <![CDATA[
+       [¡WILDCARD!]{ "type": "WILCARD", "name": "COLUMN_NAME" }[¡WILDCARD!]List = new List<[¡WILDCARD!]{ "type": "WILCARD", "name": "DATA_TYPE" }[¡WILDCARD!]>();
+      	]]>
+    </DEPENDENT_MODEL_FIELDS_NEW>
+  </TEMPLATES>
+</TEMPLATE_FILE>

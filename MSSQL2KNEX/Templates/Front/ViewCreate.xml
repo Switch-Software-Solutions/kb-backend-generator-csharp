@@ -1,0 +1,135 @@
+﻿<TEMPLATE_FILE>
+  <MAIN>
+    <![CDATA[
+<template>
+  <form @submit.prevent="onSubmit">
+[¡WILDCARD!]{ "type": "TEMPLATE", "name": "FORM_CUSTOM_DROPDOWNLIST_ROW", "repeatBy": "DEPENDENCIES_TABLE_NAME" }[¡WILDCARD!]
+[¡WILDCARD!]{ "type": "TEMPLATE", "name": "FORM_INPUT_TEXT_ROW", "repeatBy": "COLUMN_NAME" }[¡WILDCARD!]
+    <b-container class="bv-example-row">
+      <b-row>
+        <b-col class="text-right">
+          <router-link v-bind:to="'/crud/[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME", "format": "TO_LOWER" }[¡WILDCARD!]/list'">
+            <a>[ VOLVER ]</a>
+          </router-link>
+        </b-col>
+        <b-col class="text-right">
+          <button type="submit" class="btn btn-primary">[¡WILDCARD!]{ "type": "TEXT", "name": "CREATE", "format": "TO_UPPER" }[¡WILDCARD!]</button>
+        </b-col>
+      </b-row>
+    </b-container>
+  </form>
+</template>
+
+<script>
+import axios from "axios";
+import Modal from "../commons/modal.vue";
+
+[¡WILDCARD!]{ "type": "TEMPLATE", "name": "IMPORT_REFERENCES_LIST", "repeatBy": "DEPENDENCIES_TABLE_NAME" }[¡WILDCARD!]
+ 
+import { required } from "vuelidate/lib/validators";
+
+export default {
+  components: {
+    appModal: Modal,
+    [¡WILDCARD!]{ "type": "TEMPLATE", "name": "DEFINE_COMPONENTS_LIST", "repeatBy": "DEPENDENCIES_TABLE_NAME" }[¡WILDCARD!]
+  },
+  data() {
+    return {
+      model: {},
+      [¡WILDCARD!]{ "type": "TEMPLATE", "name": "DATA_LIST", "repeatBy": "DEPENDENCIES_TABLE_NAME" }[¡WILDCARD!]
+    };
+  },
+  validations: {
+    model: {
+      name: { required },
+      description: {}
+    }
+  },
+  methods: {
+    onSubmit: async function() {
+      this.$v.model.$touch();
+
+      if (!this.$v.model.$error) {
+        try {
+          [¡WILDCARD!]{ "type": "TEMPLATE", "name": "ON_SUBMIT_LIST", "repeatBy": "DEPENDENCIES_TABLE_NAME" }[¡WILDCARD!]
+        
+          let response[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME", "format": "CAPITAL_LETTER" }[¡WILDCARD!]Update = await axios.post(`/[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME", "format": "TO_LOWER" }[¡WILDCARD!]`, {
+            object: this.model
+          });
+          this.$router.push({ path: "/crud/[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME", "format": "TO_LOWER" }[¡WILDCARD!]/list" });
+        } catch (error) {
+          console.log(error);
+        }
+      }
+    },
+    [¡WILDCARD!]{ "type": "TEMPLATE", "name": "SELECTED_ROW_LIST", "repeatBy": "DEPENDENCIES_TABLE_NAME" }[¡WILDCARD!]
+  }
+};
+</script>
+
+<style>
+</style>
+	]]>
+  </MAIN>
+  <TEMPLATES>
+    <FORM_INPUT_TEXT_ROW>
+      <![CDATA[
+    <div class="form-group">
+      <label>[¡WILDCARD!]{ "type": "WILCARD", "name": "COLUMN_NAME" }[¡WILDCARD!]</label>
+      <b-input
+        type="text"
+        v-model="model.([¡WILDCARD!]{ "type": "WILCARD", "name": "COLUMN_NAME" }[¡WILDCARD!])"
+        :state="$v.model.[¡WILDCARD!]{ "type": "WILCARD", "name": "COLUMN_NAME" }[¡WILDCARD!].$dirty? $v.model.[¡WILDCARD!]{ "type": "WILCARD", "name": "COLUMN_NAME" }[¡WILDCARD!].$error? false : null : null"
+        id="[¡WILDCARD!]{ "type": "WILCARD", "name": "COLUMN_NAME" }[¡WILDCARD!]"
+        placeholder="[¡WILDCARD!]{ "type": "WILCARD", "name": "COLUMN_NAME" }[¡WILDCARD!]"
+        autocomplete="off"
+      />
+    </div>		
+		]]>
+    </FORM_INPUT_TEXT_ROW>
+    <FORM_CUSTOM_DROPDOWNLIST_ROW>
+      <![CDATA[
+    <div class="form-group">
+      <label @click="showModal[¡WILDCARD!]{ "type": "WILCARD", "name": "DEPENDENCIES_TABLE_NAME", "format": "CAPITAL_LETTER" }[¡WILDCARD!] = true" id="add[¡WILDCARD!]{ "type": "WILCARD", "name": "DEPENDENCIES_TABLE_NAME", "format": "CAPITAL_LETTER" }[¡WILDCARD!]">ADD [¡WILDCARD!]{ "type": "WILCARD", "name": "DEPENDENCIES_TABLE_NAME", "format": "TO_UPPER" }[¡WILDCARD!]</label>
+      <app-modal v-if="showModal[¡WILDCARD!]{ "type": "WILCARD", "name": "DEPENDENCIES_TABLE_NAME", "format": "CAPITAL_LETTER" }[¡WILDCARD!]" @close="showModal[¡WILDCARD!]{ "type": "WILCARD", "name": "DEPENDENCIES_TABLE_NAME", "format": "CAPITAL_LETTER" }[¡WILDCARD!] = false">
+        <label slot="header">[¡WILDCARD!]{ "type": "WILCARD", "name": "DEPENDENCIES_TABLE_NAME", "format": "TO_UPPER" }[¡WILDCARD!]</label>
+        <app-list-[¡WILDCARD!]{ "type": "WILCARD", "name": "DEPENDENCIES_TABLE_NAME", "format": "TO_LOWER" }[¡WILDCARD!] slot="body" actionType="NO-ACTION" @selectedRow="selectedRow[¡WILDCARD!]{ "type": "WILCARD", "name": "DEPENDENCIES_TABLE_NAME", "format": "CAPITAL_LETTER" }[¡WILDCARD!]"></app-list-[¡WILDCARD!]{ "type": "WILCARD", "name": "DEPENDENCIES_TABLE_NAME", "format": "TO_LOWER" }[¡WILDCARD!]>
+        <label slot="footer">Seleccione [¡WILDCARD!]{ "type": "WILCARD", "name": "DEPENDENCIES_TABLE_NAME", "format": "TO_UPPER" }[¡WILDCARD!]</label>
+      </app-modal>
+    </div>
+    <aapp-[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME", "format": "TO_LOWER" }[¡WILDCARD!]-[¡WILDCARD!]{ "type": "WILCARD", "name": "DEPENDENCIES_TABLE_NAME", "format": "TO_LOWER" }[¡WILDCARD!]-list ref="[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME", "format": "TO_LOWER" }[¡WILDCARD!][¡WILDCARD!]{ "type": "WILCARD", "name": "DEPENDENCIES_TABLE_NAME", "format": "TO_LOWER" }[¡WILDCARD!]List"></app-[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME", "format": "TO_LOWER" }[¡WILDCARD!]-[¡WILDCARD!]{ "type": "WILCARD", "name": "DEPENDENCIES_TABLE_NAME", "format": "TO_LOWER" }[¡WILDCARD!]-list>		
+		]]>
+    </FORM_CUSTOM_DROPDOWNLIST_ROW>
+    <IMPORT_REFERENCES_LIST>
+      <![CDATA[
+import [¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME", "format": "CAPITAL_LETTER" }[¡WILDCARD!]CardsList from "./[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME", "format": "TO_LOWER" }[¡WILDCARD!][¡WILDCARD!]{ "type": "WILCARD", "name": "DEPENDENCIES_TABLE_NAME", "format": "CAPITAL_LETTER" }[¡WILDCARD!]List.vue";
+import List[¡WILDCARD!]{ "type": "WILCARD", "name": "DEPENDENCIES_TABLE_NAME", "format": "CAPITAL_LETTER" }[¡WILDCARD!] from "../[¡WILDCARD!]{ "type": "WILCARD", "name": "DEPENDENCIES_TABLE_NAME", "format": "TO_LOWER" }[¡WILDCARD!]/list.vue";
+    ]]>
+    </IMPORT_REFERENCES_LIST>
+    <DEFINE_COMPONENTS_LIST>
+      <![CDATA[
+    app[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME", "format": "TO_LOWER" }[¡WILDCARD!][¡WILDCARD!]{ "type": "WILCARD", "name": "DEPENDENCIES_TABLE_NAME", "format": "CAPITAL_LETTER" }[¡WILDCARD!]List: [¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME", "format": "TO_LOWER" }[¡WILDCARD!][¡WILDCARD!]{ "type": "WILCARD", "name": "CAPITAL_LETTER", "format": "CAPITAL_LETTER" }[¡WILDCARD!]List,
+    appList[¡WILDCARD!]{ "type": "WILCARD", "name": "DEPENDENCIES_TABLE_NAME", "format": "CAPITAL_LETTER" }[¡WILDCARD!]: List[¡WILDCARD!]{ "type": "WILCARD", "name": "DEPENDENCIES_TABLE_NAME", "format": "CAPITAL_LETTER" }[¡WILDCARD!]
+    ]]>
+    </DEFINE_COMPONENTS_LIST>
+    <DATA_LIST>
+      <![CDATA[
+          showModal[¡WILDCARD!]{ "type": "WILCARD", "name": "DEPENDENCIES_TABLE_NAME", "format": "CAPITAL_LETTER" }[¡WILDCARD!]: false,
+    ]]>
+    </DATA_LIST>
+    <ON_SUBMIT_LIST>
+      <![CDATA[
+      this.model.[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME", "format": "CAPITAL_LETTER" }[¡WILDCARD!][¡WILDCARD!]{ "type": "WILCARD", "name": "DEPENDENCIES_TABLE_NAME", "format": "CAPITAL_LETTER" }[¡WILDCARD!] = this.$refs.[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME", "format": "TO_LOWER" }[¡WILDCARD!][¡WILDCARD!]{ "type": "WILCARD", "name": "DEPENDENCIES_TABLE_NAME", "format": "CAPITAL_LETTER" }[¡WILDCARD!]List.[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME", "format": "TO_LOWER" }[¡WILDCARD!][¡WILDCARD!]{ "type": "WILCARD", "name": "DEPENDENCIES_TABLE_NAME", "format": "TO_LOWER" }[¡WILDCARD!]_cards;
+    ]]>
+    </ON_SUBMIT_LIST>
+    <SELECTED_ROW_LIST>
+      <![CDATA[
+    selectedRow[¡WILDCARD!]{ "type": "WILCARD", "name": "DEPENDENCIES_TABLE_NAME", "format": "CAPITAL_LETTER" }[¡WILDCARD!]: async function([¡WILDCARD!]{ "type": "WILCARD", "name": "DEPENDENCIES_TABLE_NAME", "format": "TO_LOWER" }[¡WILDCARD!]) {
+      [¡WILDCARD!]{ "type": "WILCARD", "name": "DEPENDENCIES_TABLE_NAME", "format": "TO_LOWER" }[¡WILDCARD!].order = this.$refs.[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME", "format": "TO_LOWER" }[¡WILDCARD!][¡WILDCARD!]{ "type": "WILCARD", "name": "DEPENDENCIES_TABLE_NAME", "format": "CAPITAL_LETTER" }[¡WILDCARD!]List.[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME", "format": "TO_LOWER" }[¡WILDCARD!]_[¡WILDCARD!]{ "type": "WILCARD", "name": "DEPENDENCIES_TABLE_NAME", "format": "TO_LOWER" }[¡WILDCARD!].length + 1;
+      this.$refs.[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME", "format": "TO_LOWER" }[¡WILDCARD!][¡WILDCARD!]{ "type": "WILCARD", "name": "DEPENDENCIES_TABLE_NAME", "format": "CAPITAL_LETTER" }[¡WILDCARD!]List.[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME", "format": "TO_LOWER" }[¡WILDCARD!]_[¡WILDCARD!]{ "type": "WILCARD", "name": "DEPENDENCIES_TABLE_NAME", "format": "TO_LOWER" }[¡WILDCARD!].push([¡WILDCARD!]{ "type": "WILCARD", "name": "DEPENDENCIES_TABLE_NAME", "format": "TO_LOWER" }[¡WILDCARD!]);
+      this.showModal[¡WILDCARD!]{ "type": "WILCARD", "name": "DEPENDENCIES_TABLE_NAME", "format": "CAPITAL_LETTER" }[¡WILDCARD!] = false;
+    },
+    ]]>
+    </SELECTED_ROW_LIST>
+  </TEMPLATES>
+</TEMPLATE_FILE>

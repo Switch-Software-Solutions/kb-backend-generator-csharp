@@ -1,0 +1,66 @@
+﻿<TEMPLATE_FILE>
+  <MAIN>
+    <![CDATA[
+<template>
+  <form @submit.prevent="onSubmit">
+    [¡WILDCARD!]{ "type": "TEMPLATE", "name": "FORM_LABEL_ROW", "repeatBy": "COLUMN_NAME" }[¡WILDCARD!]
+    <b-container class="bv-example-row">
+      <b-row>
+        <b-col class="text-right"><router-link v-bind:to="'/crud/[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME", "format": "TO_LOWER" }[¡WILDCARD!]/list'"><a>[ VOLVER ]</a></router-link></b-col>
+        <b-col class="text-right"><button type="submit" class="btn btn-danger">ELIMINAR</button></b-col>
+      </b-row>
+    </b-container>
+  </form>
+</template>
+
+<script>
+import axios from "axios";
+
+export default {
+  data() {
+    return {
+      model: {
+      }
+    };
+  },
+  methods: {
+    onSubmit: async function() {
+      try {
+        let responseDelete[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME", "format": "TO_LOWER" }[¡WILDCARD!] = await axios.delete(
+          `/[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME", "format": "TO_LOWER" }[¡WILDCARD!]/${this.$route.params.id}`,
+          { object: this.model }
+        );
+        this.$router.push("/crud/[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME", "format": "TO_LOWER" }[¡WILDCARD!]/list");
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  },
+  created: async function() {
+    try {
+      var response[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME", "format": "TO_LOWER" }[¡WILDCARD!] = await axios.get(
+        `/[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME", "format": "TO_LOWER" }[¡WILDCARD!]/${this.$route.params.id}`
+      );
+      this.model = response[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME", "format": "TO_LOWER" }[¡WILDCARD!].data;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+};
+</script>
+
+<style>
+</style>
+	]]>
+  </MAIN>
+  <TEMPLATES>
+    <FORM_LABEL_ROW>
+      <![CDATA[
+   <div class="form-group">
+      <label>[¡WILDCARD!]{ "type": "WILCARD", "name": "COLUMN_NAME", "format": "TO_UPPER" }[¡WILDCARD!]</label>
+      <label type="text" class="form-control" id="[¡WILDCARD!]{ "type": "WILCARD", "name": "COLUMN_NAME" }[¡WILDCARD!]">{{ model.name }}</label>
+    </div>
+		]]>
+    </FORM_LABEL_ROW>
+  </TEMPLATES>
+</TEMPLATE_FILE>

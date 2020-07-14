@@ -1,0 +1,101 @@
+﻿<TEMPLATE_FILE>
+  <MAIN>
+    <![CDATA[
+using System.Collections.Generic;
+using System.Data.Entity;
+using System.Linq;
+
+namespace SafeTemp.DataAccess.Service.Entities
+{
+    public class [¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!] : CRUD.SafeTemp<DTO.[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!], DataAccess.[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!]>
+    {
+        public override List<DataAccess.[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!]> DTOsToEntitys(List<DTO.[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!]> t_DTOList)
+        {
+            List<DataAccess.[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!]> result = new List<DataAccess.[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!]>();
+
+            foreach (DTO.[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!] t_DTO in t_DTOList)
+            {
+                result.Add(DTOToEntity(t_DTO));
+            }
+
+            return result;
+        }
+
+        public override DataAccess.[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!] DTOToEntity(DTO.[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!] t_DTO)
+        {
+            SafeTemp.DataAccess.[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!] result;
+
+            result = new SafeTemp.DataAccess.[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!]()
+            {
+              [¡WILDCARD!]{ "type": "TEMPLATE", "name": "DTO_TO_ENTITY", "repeatBy": "COLUMN_NAME" }[¡WILDCARD!]
+            };
+
+            return result;
+        }
+
+        public override List<DTO.[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!]> EntitysToDTOs(List<DataAccess.[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!]> t_EntityList)
+        {
+            List<DTO.[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!]> result = new List<DTO.[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!]>();
+
+            foreach (DataAccess.[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!] t_Entity in t_EntityList) 
+            {
+                result.Add(EntityToDTO(t_Entity));
+            }
+
+            return result;
+        }
+
+        public override DTO.[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!] EntityToDTO(DataAccess.[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!] t_Entity)
+        {
+            DTO.[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!] result;
+
+            result = new DTO.[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!]()
+            {
+                [¡WILDCARD!]{ "type": "TEMPLATE", "name": "ENTITY_TO_DTO", "repeatBy": "COLUMN_NAME" }[¡WILDCARD!]
+            };
+
+            return result;
+        }
+
+        public override List<DataAccess.[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!]> QueryGetAll(DbContext context)
+        {
+            return
+            (
+                from [¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME", "format": "TO_LOWER" }[¡WILDCARD!] in ((BHC_SafeTempEntities)context).[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!] 
+                select [¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME", "format": "TO_LOWER" }[¡WILDCARD!]
+            )
+            .ToList();
+        }
+
+        public override DataAccess.[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!] QueryGetSingle(long ID, DbContext context)
+        {
+            return
+            (
+                from [¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME", "format": "TO_LOWER" }[¡WILDCARD!] in ((BHC_SafeTempEntities)context).[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!]
+                where [¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME", "format": "TO_LOWER" }[¡WILDCARD!].ID == ID
+                select [¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME", "format": "TO_LOWER" }[¡WILDCARD!]
+            )
+            .SingleOrDefault();
+        }
+
+        public override string TableName()
+        {
+            return "[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!]";
+        }
+    }
+}
+]]>
+  </MAIN>
+  <TEMPLATES>
+    <ENTITY_TO_DTO>
+      <![CDATA[
+      [¡WILDCARD!]{ "type": "WILCARD", "name": "COLUMN_NAME" }[¡WILDCARD!] = t_Entity.[¡WILDCARD!]{ "type": "WILCARD", "name": "COLUMN_NAME" }[¡WILDCARD!],
+      	]]>
+    </ENTITY_TO_DTO>
+    <DTO_TO_ENTITY>
+      <![CDATA[
+      [¡WILDCARD!]{ "type": "WILCARD", "name": "COLUMN_NAME" }[¡WILDCARD!] = t_DTO.[¡WILDCARD!]{ "type": "WILCARD", "name": "COLUMN_NAME" }[¡WILDCARD!],
+      	]]>
+    </DTO_TO_ENTITY>
+  </TEMPLATES>
+</TEMPLATE_FILE>

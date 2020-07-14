@@ -1,0 +1,157 @@
+﻿<TEMPLATE_FILE>
+  <MAIN>
+    <![CDATA[
+using [¡WILDCARD!]{ "type": "WILCARD", "name": "PROYECT" }[¡WILDCARD!].DataAccess.Service.CRUD;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace [¡WILDCARD!]{ "type": "WILCARD", "name": "PROYECT" }[¡WILDCARD!].DataAccess.Service.Entities
+{
+    public class [¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!] : Generic<DTO.[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!], DataAccess.[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!]>
+    {
+        public override List<DataAccess.[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!]> DTOsToEntitys(List<DTO.[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!]> t_DTOList)
+        {
+            List<DataAccess.[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!]> result = new List<DataAccess.[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!]>();
+
+            foreach (DTO.[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!] t_DTO in t_DTOList)
+            {
+                result.Add(DTOToEntity(t_DTO));
+            }
+
+            return result;
+        }
+
+        public override DataAccess.[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!] DTOToEntity(DTO.[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!] t_DTO)
+        {
+            [¡WILDCARD!]{ "type": "WILCARD", "name": "PROYECT" }[¡WILDCARD!].DataAccess.[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!] result;
+
+            result = new [¡WILDCARD!]{ "type": "WILCARD", "name": "PROYECT" }[¡WILDCARD!].DataAccess.[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!]()
+            {
+                [¡WILDCARD!]{ "type": "TEMPLATE", "name": "MODEL_FIELDS_DTOTOENTITY", "repeatBy": "COLUMN_NAME" }[¡WILDCARD!]
+                [¡WILDCARD!]{ "type": "TEMPLATE", "name": "DEPENDENT_MODEL_FIELDS_DTOTOENTITY", "repeatBy": "DEPENDENCIES_TABLE_NAME" }[¡WILDCARD!]
+             };
+
+            return result;
+        }
+
+        public override List<DTO.[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!]> EntitysToDTOs(List<DataAccess.[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!]> t_EntityList)
+        {
+            List<DTO.[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!]> result = new List<DTO.[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!]>();
+
+            foreach (DataAccess.[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!] t_Entity in t_EntityList)
+            {
+                result.Add(EntityToDTO(t_Entity));
+            }
+
+            return result;
+        }
+
+        public override DTO.[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!] EntityToDTO(DataAccess.[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!] t_Entity)
+        {
+            DTO.[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!] result;
+
+            result = new DTO.[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!]()
+            {
+                [¡WILDCARD!]{ "type": "TEMPLATE", "name": "MODEL_FIELDS_ENTITYTODTO", "repeatBy": "COLUMN_NAME" }[¡WILDCARD!]
+                [¡WILDCARD!]{ "type": "TEMPLATE", "name": "DEPENDENCIES_MODEL_FIELDS_ENTITYTODTO", "repeatBy": "DEPENDENCIES_TABLE_NAME" }[¡WILDCARD!]
+   
+            };
+
+            return result;
+        }
+
+        public override List<DataAccess.[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!]> QueryGetAll([¡WILDCARD!]{ "type": "WILCARD", "name": "PROYECT" }[¡WILDCARD!]Entities context)
+        {
+            return
+            (
+                from entity in context.[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!]
+                select entity
+            )
+            .ToList();
+        }
+
+        public override List<DataAccess.[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!]> QueryGetAll([¡WILDCARD!]{ "type": "WILCARD", "name": "PROYECT" }[¡WILDCARD!]Entities context, Dictionary<string, object> filter)
+        {
+            var query = from entity in context.[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!] select entity;
+
+            if (filter.Any())
+            {
+                //IEnumerable<string> validKeys = filter.Keys.Where(k => typeof(DataAccess.Attribute).GetProperties().Select(p => p.Name).Contains(k));
+
+                foreach (string key in filter.Keys)
+                {
+                    switch (key.ToLower())
+                    {
+                        [¡WILDCARD!]{ "type": "TEMPLATE", "name": "MODEL_FIELDS_GETALLFILTER", "repeatBy": "COLUMN_NAME" }[¡WILDCARD!]
+                        [¡WILDCARD!]{ "type": "TEMPLATE", "name": "DEPENDENCIES_MODEL_FIELDS_GETALLFILTER", "repeatBy": "DEPENDENCIES_TABLE_NAME" }[¡WILDCARD!]
+
+                        default:
+                            throw new Exception($"The {key} field does not belongs to the entity Attribute.");
+                    }
+                }
+            }
+            var result = query.ToList();
+
+            return result;            
+        }
+
+        public override DataAccess.[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!] QueryGetSingle(long ID, [¡WILDCARD!]{ "type": "WILCARD", "name": "PROYECT" }[¡WILDCARD!]Entities context)
+        {
+            return
+            (
+                from entity in context.[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!]
+                where entity.ID == ID
+                select entity
+            )
+            .SingleOrDefault();
+        }
+
+        public override string TableName()
+        {
+            return "[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!]";
+        }
+    }
+}
+
+]]>
+  </MAIN>
+  <TEMPLATES>
+    <MODEL_FIELDS_DTOTOENTITY>
+      <![CDATA[
+                 [¡WILDCARD!]{ "type": "WILCARD", "name": "COLUMN_NAME" }[¡WILDCARD!] = t_DTO.[¡WILDCARD!]{ "type": "WILCARD", "name": "COLUMN_NAME" }[¡WILDCARD!],
+      	]]>
+    </MODEL_FIELDS_DTOTOENTITY>
+    <DEPENDENT_MODEL_FIELDS_DTOTOENTITY>
+      <![CDATA[
+                 [¡WILDCARD!]{ "type": "WILCARD", "name": "COLUMN_NAME" }[¡WILDCARD!] = t_DTO.[¡WILDCARD!]{ "type": "WILCARD", "name": "COLUMN_NAME", "transform": "ID(.+)$", "transformGroup": "1" }[¡WILDCARD!].ID,
+      	]]>
+    </DEPENDENT_MODEL_FIELDS_DTOTOENTITY>
+    <MODEL_FIELDS_ENTITYTODTO>
+      <![CDATA[
+                 [¡WILDCARD!]{ "type": "WILCARD", "name": "COLUMN_NAME" }[¡WILDCARD!] = t_Entity.[¡WILDCARD!]{ "type": "WILCARD", "name": "COLUMN_NAME" }[¡WILDCARD!],
+      	]]>
+    </MODEL_FIELDS_ENTITYTODTO>
+    <DEPENDENCIES_MODEL_FIELDS_ENTITYTODTO>
+      <![CDATA[
+                 [¡WILDCARD!]{ "type": "WILCARD", "name": "COLUMN_NAME", "transform": "ID(.+)$", "transformGroup": "1" }[¡WILDCARD!] = new DTO.[¡WILDCARD!]{ "type": "WILCARD", "name": "DATA_TYPE_DEPENDENCIES" }[¡WILDCARD!]() { ID = t_Entity.[¡WILDCARD!]{ "type": "WILCARD", "name": "COLUMN_NAME" }[¡WILDCARD!] },
+      	]]>
+    </DEPENDENCIES_MODEL_FIELDS_ENTITYTODTO>
+    <MODEL_FIELDS_GETALLFILTER>
+      <![CDATA[
+                            case "[¡WILDCARD!]{ "type": "WILCARD", "name": "COLUMN_NAME", "format": "TO_LOWER" }[¡WILDCARD!]":
+                            [¡WILDCARD!]{ "type": "WILCARD", "name": "DATA_TYPE" }[¡WILDCARD!] filter[¡WILDCARD!]{ "type": "WILCARD", "name": "COLUMN_NAME" }[¡WILDCARD!] = Convert.To[¡WILDCARD!]{ "type": "WILCARD", "name": "DATA_TYPE" }[¡WILDCARD!](filter[key]);
+                            query = from entity in query where entity.[¡WILDCARD!]{ "type": "WILCARD", "name": "COLUMN_NAME" }[¡WILDCARD!] == filter[¡WILDCARD!]{ "type": "WILCARD", "name": "COLUMN_NAME" }[¡WILDCARD!] select entity;
+                            break;             
+      	]]>
+    </MODEL_FIELDS_GETALLFILTER>
+    <DEPENDENCIES_MODEL_FIELDS_GETALLFILTER>
+    <![CDATA[
+                            case "[¡WILDCARD!]{ "type": "WILCARD", "name": "COLUMN_NAME", "format": "TO_LOWER" }[¡WILDCARD!]":
+                            Int64 filter[¡WILDCARD!]{ "type": "WILCARD", "name": "COLUMN_NAME" }[¡WILDCARD!] = Convert.ToInt64(filter[key]);
+                            query = from entity in query where entity.[¡WILDCARD!]{ "type": "WILCARD", "name": "COLUMN_NAME" }[¡WILDCARD!] == filter[¡WILDCARD!]{ "type": "WILCARD", "name": "COLUMN_NAME" }[¡WILDCARD!] select entity;
+                            break;           
+      ]]>
+  </DEPENDENCIES_MODEL_FIELDS_GETALLFILTER>
+  </TEMPLATES>
+</TEMPLATE_FILE>

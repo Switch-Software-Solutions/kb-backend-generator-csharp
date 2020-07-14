@@ -1,0 +1,67 @@
+﻿<TEMPLATE_FILE>
+  <MAIN>
+    <![CDATA[
+var entities_[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME", "format": "TO_LOWER" }[¡WILDCARD!] = require('../data_access/persistence_manager/entities/[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME", "format": "TO_LOWER" }[¡WILDCARD!]');
+var transactions = require('../data_access/persistence_manager/transactions');
+
+async function list(currentUser, filter) {
+    let parameters = {
+        "currentUser": currentUser,
+        "filter": filter
+    }
+
+    return await transactions.begin(entities_[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME", "format": "TO_LOWER" }[¡WILDCARD!].list, parameters);
+}
+
+async function create(currentUser, [¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME", "format": "TO_LOWER" }[¡WILDCARD!]Object) {
+    let parameters = {
+        "currentUser": currentUser,
+        "[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME", "format": "TO_LOWER" }[¡WILDCARD!]Object": [¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME", "format": "TO_LOWER" }[¡WILDCARD!]Object
+    }
+
+    return await transactions.begin(entities_[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME", "format": "TO_LOWER" }[¡WILDCARD!].create, parameters);
+}
+
+async function read(currentUser, id) {
+    let parameters = {
+        "currentUser": currentUser,
+        "id": id
+    }
+
+    return await transactions.begin(entities_[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME", "format": "TO_LOWER" }[¡WILDCARD!].read, parameters);
+}
+
+async function update(currentUser, [¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME", "format": "TO_LOWER" }[¡WILDCARD!]Object, id) {
+    delete [¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME", "format": "TO_LOWER" }[¡WILDCARD!]Object.ID;
+
+    let parameters = {
+        "currentUser": currentUser,
+        "[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME", "format": "TO_LOWER" }[¡WILDCARD!]Object": [¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME", "format": "TO_LOWER" }[¡WILDCARD!]Object,
+        "id": id
+    }
+
+    return await transactions.begin(entities_[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME", "format": "TO_LOWER" }[¡WILDCARD!].update, parameters);
+}
+
+async function remove(currentUser, id) {
+    let parameters = {
+        "currentUser": currentUser,
+        "id": id
+    }
+
+    return await transactions.begin(entities_[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME", "format": "TO_LOWER" }[¡WILDCARD!].remove, parameters);
+}
+
+module.exports = {
+    list,
+    create,
+    read,
+    update,
+    remove
+}
+
+	]]>
+  </MAIN>
+  <TEMPLATES>
+  </TEMPLATES>
+</TEMPLATE_FILE>

@@ -1,0 +1,26 @@
+﻿<TEMPLATE_FILE>
+  <MAIN>
+    <![CDATA[
+using FluentValidation;
+using Api.Resources;
+
+namespace Api.Validations
+{
+    public class Save[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!]ResourceValidator : AbstractValidator<[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!]Resource>
+    {
+        public Save[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!]ResourceValidator()
+        {
+            [¡WILDCARD!]{ "type": "TEMPLATE", "name": "RULES", "repeatBy": "COLUMN_NAME" }[¡WILDCARD!]
+        }
+    }
+}
+]]>
+  </MAIN>
+  <TEMPLATES>
+    <RULES>
+      <![CDATA[                                                                             
+        RuleFor(m => m.[¡WILDCARD!]{ "type": "WILCARD", "name": "COLUMN_NAME" }[¡WILDCARD!])[¡WILDCARD!]{ "type": "WILCARD", "name": "VALIDATORS.RULES" }[¡WILDCARD!];
+      	]]>
+    </RULES>
+  </TEMPLATES>
+</TEMPLATE_FILE>

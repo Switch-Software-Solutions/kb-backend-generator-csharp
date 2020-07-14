@@ -1,0 +1,36 @@
+﻿<TEMPLATE_FILE>
+  <MAIN>
+    <![CDATA[
+using AutoMapper;
+using Api.Resources;
+using Core.Models;
+
+namespace Api.Mapping
+{
+    public class MappingProfile : Profile
+    {
+        public MappingProfile()
+        {
+            // Domain to Resource
+            [¡WILDCARD!]{ "type": "TEMPLATE", "name": "DOMAIN_TO_RESOURCE", "repeatBy": "TABLE_NAME" }[¡WILDCARD!]
+            
+            // Resource to Domain
+            [¡WILDCARD!]{ "type": "TEMPLATE", "name": "RESOURCE_TO_DOMAIN", "repeatBy": "TABLE_NAME" }[¡WILDCARD!]
+        }
+    }
+}
+]]>
+  </MAIN>
+  <TEMPLATES>
+    <DOMAIN_TO_RESOURCE>
+      <![CDATA[
+            CreateMap<[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!], [¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!]Resource>();
+      	]]>
+    </DOMAIN_TO_RESOURCE>
+    <RESOURCE_TO_DOMAIN>
+      <![CDATA[
+            CreateMap<[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!]Resource, [¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!]>();
+      	]]>
+    </RESOURCE_TO_DOMAIN>
+  </TEMPLATES>
+</TEMPLATE_FILE>

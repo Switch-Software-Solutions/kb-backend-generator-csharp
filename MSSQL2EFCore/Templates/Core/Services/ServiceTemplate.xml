@@ -1,0 +1,23 @@
+﻿<TEMPLATE_FILE>
+  <MAIN>
+    <![CDATA[
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using Core.Models;
+
+namespace Core.Services
+{
+    public interface I[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!]Service
+    {
+        Task<IEnumerable<[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!]>> GetAll();
+        Task<[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!]> GetByID(int id);
+        Task<[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!]> Create([¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!] new[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!]);
+        Task Update([¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!] [¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME", "format": "FIRST_LETTER_TO_LOWER" }[¡WILDCARD!]ToBeUpdated, [¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!] [¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME", "format": "FIRST_LETTER_TO_LOWER" }[¡WILDCARD!]);
+        Task Delete([¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!] [¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME", "format": "FIRST_LETTER_TO_LOWER" }[¡WILDCARD!]);
+    }
+}
+]]>
+  </MAIN>
+  <TEMPLATES>
+  </TEMPLATES>
+</TEMPLATE_FILE>

@@ -1,0 +1,66 @@
+﻿<TEMPLATE_FILE>
+  <MAIN>
+    <![CDATA[
+var express = require('express');
+var router = express.Router();
+
+var business_[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME", "format": "TO_LOWER" }[¡WILDCARD!] = require('../../business/[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME", "format": "TO_LOWER" }[¡WILDCARD!]');
+
+router.get('/', async (request, response) => {
+  var filter = request.query ? request.query : true;
+
+  try {
+    let result = await  business_[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME", "format": "TO_LOWER" }[¡WILDCARD!].list(getCurrentUser(), filter);
+    response.status(200).json(result);
+  } catch (error) {
+    console.log(error);
+    response.status(500).json(error.message);
+  }
+}),
+  router.post('/', async (request, response) => {
+    try {
+      let result = await  business_[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME", "format": "TO_LOWER" }[¡WILDCARD!].create(getCurrentUser(), request.body.object);
+      response.status(200).json(result);
+    } catch (error) {
+      console.log(error);
+      response.status(500).json(error.message);
+    }
+  }),
+  router.get('/:id', async (request, response) => {
+    try {
+      let result = await  business_[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME", "format": "TO_LOWER" }[¡WILDCARD!].read(getCurrentUser(), request.params.id);
+      response.status(200).json(result);
+    } catch (error) {
+      console.log(error);
+      response.status(500).json(error.message);
+    }
+  }),
+  router.patch('/:id', async (request, response) => {
+    try {
+      let result = await  business_[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME", "format": "TO_LOWER" }[¡WILDCARD!].update(getCurrentUser(), request.body.object, request.params.id);
+      response.status(200).json(result);
+    } catch (error) {
+      console.log(error);
+      response.status(500).json(error.message);
+    }
+  }),
+  router.delete('/:id', async (request, response) => {
+    try {
+      let result = await  business_[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME", "format": "TO_LOWER" }[¡WILDCARD!].remove(getCurrentUser(), request.params.id);
+      response.status(200).json(result);
+    } catch (error) {
+      console.log(error);
+      response.status(500).json(error.message);
+    }
+  });
+
+function getCurrentUser() {
+  return 'current-user';
+}
+
+module.exports = router;
+	]]>
+  </MAIN>
+  <TEMPLATES>
+  </TEMPLATES>
+</TEMPLATE_FILE>

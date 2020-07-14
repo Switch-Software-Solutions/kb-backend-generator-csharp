@@ -1,0 +1,202 @@
+﻿<TEMPLATE_FILE>
+  <MAIN>
+    <![CDATA[
+using [¡WILDCARD!]{ "type": "WILCARD", "name": "PROYECT" }[¡WILDCARD!].Test.Handlers.Interfaces;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace [¡WILDCARD!]{ "type": "WILCARD", "name": "PROYECT" }[¡WILDCARD!].Test.Handlers
+{
+    public class [¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!]Handler : IEntityHandle
+    {
+        public DTO.PersistentObject Create()
+        {
+            DTO.[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!] dto[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!] = new DTO.[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!]();
+          
+            [¡WILDCARD!]{ "type": "TEMPLATE", "name": "MODEL_FIELDS_CREATE", "repeatBy": "COLUMN_NAME", "exclude": ["ID"] }[¡WILDCARD!]
+            [¡WILDCARD!]{ "type": "TEMPLATE", "name": "MODEL_FIELDS_CREATE_DEPENDENCIES", "repeatBy": "DEPENDENCIES_TABLE_NAME" }[¡WILDCARD!]
+
+            new [¡WILDCARD!]{ "type": "WILCARD", "name": "PROYECT" }[¡WILDCARD!].Core.[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!]().Create(ref dto[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!]);
+
+            dto[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!]  = Read(dto[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!].ID);
+
+            Print(dto[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!]);
+
+            return dto[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!];
+        }
+
+        public DTO.PersistentObject Delete()
+        {
+            DTO.[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!] dto[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!] = null;
+
+            Console.Write($"ID? ");
+            Int64 ID = Convert.ToInt64(Console.ReadLine());
+
+            dto[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!] = new [¡WILDCARD!]{ "type": "WILCARD", "name": "PROYECT" }[¡WILDCARD!].Core.[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!]().Read(ID);
+
+            Print(dto[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!]);
+
+            new [¡WILDCARD!]{ "type": "WILCARD", "name": "PROYECT" }[¡WILDCARD!].Core.[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!]().Delete(ID);
+
+            return dto[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!];
+        }
+
+        public List<DTO.PersistentObject> List()
+        {
+            ICollection<DTO.[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!]> dto[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!]List = new [¡WILDCARD!]{ "type": "WILCARD", "name": "PROYECT" }[¡WILDCARD!].Core.[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!]().List();
+
+            int index = 0;
+
+            while (index < dto[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!]List.Count)
+            {
+                Print(dto[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!]List.ElementAt(index));
+             
+                index++;
+                
+                if (index % 10 == 0)
+                {
+                    Console.WriteLine("Press a key to coninue.");
+                    Console.ReadKey();
+                }
+            }
+
+            return dto[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!]List.Cast<DTO.PersistentObject>().ToList();
+        }
+        
+        public List<DTO.PersistentObject> FilterList(Dictionary<string, object> filter)
+        {
+            ICollection<DTO.[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!]> dto[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!]List = new [¡WILDCARD!]{ "type": "WILCARD", "name": "PROYECT" }[¡WILDCARD!].Core.[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!]().List(filter);
+
+            int index = 0;
+
+            while (index < dto[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!]List.Count)
+            {
+                Print(dto[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!]List.ElementAt(index));
+             
+                index++;
+                
+                if (index % 10 == 0)
+                {
+                    Console.WriteLine("Press a key to coninue.");
+                    Console.ReadKey();
+                }
+            }
+
+            return dto[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!]List.Cast<DTO.PersistentObject>().ToList();
+        }
+
+        public DTO.PersistentObject Read()
+        {
+            DTO.[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!] dto[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!] = null;
+
+            Console.Write($"ID? ");
+            Int64 ID = Convert.ToInt64(Console.ReadLine());
+
+            dto[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!] = Read(ID);
+
+            Print(dto[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!]);
+
+            return dto[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!];
+        }
+
+        private DTO.[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!] Read(long ID)
+        {
+            DTO.[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!] dto[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!] = null;
+
+            dto[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!] = new [¡WILDCARD!]{ "type": "WILCARD", "name": "PROYECT" }[¡WILDCARD!].Core.[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!]().Read(ID);
+
+            return dto[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!];
+        }
+
+        public DTO.PersistentObject Update()
+        {
+            DTO.[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!] dto[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!] = null;
+
+            Console.Write($"ID? ");
+            Int64 ID = Convert.ToInt64(Console.ReadLine());
+
+            dto[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!] = new [¡WILDCARD!]{ "type": "WILCARD", "name": "PROYECT" }[¡WILDCARD!].Core.[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!]().Read(ID);
+
+            [¡WILDCARD!]{ "type": "TEMPLATE", "name": "MODEL_FIELDS_UPDATE", "repeatBy": "COLUMN_NAME", "exclude": ["ID"] }[¡WILDCARD!]
+            [¡WILDCARD!]{ "type": "TEMPLATE", "name": "MODEL_FIELDS_CREATE_DEPENDENCIES", "repeatBy": "DEPENDENCIES_TABLE_NAME" }[¡WILDCARD!]
+
+            new [¡WILDCARD!]{ "type": "WILCARD", "name": "PROYECT" }[¡WILDCARD!].Core.[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!]().Update(dto[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!]);
+
+            dto[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!] = Read(ID);
+
+            Print(dto[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!]);
+
+            return dto[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!];
+        }
+
+        private void Print(DTO.PersistentObject iDObject)
+        {
+            DTO.[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!] dto[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!] = (DTO.[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!])iDObject;
+
+            Console.WriteLine();
+            
+            [¡WILDCARD!]{ "type": "TEMPLATE", "name": "MODEL_FIELDS_PRINT", "repeatBy": "COLUMN_NAME" }[¡WILDCARD!]
+            [¡WILDCARD!]{ "type": "TEMPLATE", "name": "MODEL_FIELDS_PRINT_DEPENDENCIES", "repeatBy": "DEPENDENCIES_TABLE_NAME" }[¡WILDCARD!]
+
+            Console.WriteLine("--------------------------------------------------------------------------------------");
+        }
+    }
+}
+]]>
+  </MAIN>
+  <TEMPLATES>
+    <MODEL_FIELDS_CREATE>
+      <![CDATA[
+            Console.Write("[¡WILDCARD!]{ "type": "WILCARD", "name": "COLUMN_NAME" }[¡WILDCARD!]: ");
+            dto[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!].[¡WILDCARD!]{ "type": "WILCARD", "name": "COLUMN_NAME" }[¡WILDCARD!] = Convert.To[¡WILDCARD!]{ "type": "WILCARD", "name": "DATA_TYPE" }[¡WILDCARD!](Console.ReadLine());
+      ]]>
+    </MODEL_FIELDS_CREATE>
+    <MODEL_FIELDS_CREATE_DEPENDENCIES>
+      <![CDATA[
+            Console.Write("[¡WILDCARD!]{ "type": "WILCARD", "name": "COLUMN_NAME" }[¡WILDCARD!] (ID): ");
+            dto[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!].[¡WILDCARD!]{ "type": "WILCARD", "name": "COLUMN_NAME", "transform": "ID(.+)$", "transformGroup": "1" }[¡WILDCARD!] = new DTO.[¡WILDCARD!]{ "type": "WILCARD", "name": "DATA_TYPE_DEPENDENCIES" }[¡WILDCARD!]() { ID = Convert.ToInt64(Console.ReadLine()) };
+    ]]>
+    </MODEL_FIELDS_CREATE_DEPENDENCIES>
+    <MODEL_FIELDS_READ>
+      <![CDATA[
+            Console.WriteLine($"[¡WILDCARD!]{ "type": "WILCARD", "name": "COLUMN_NAME" }[¡WILDCARD!]: {dto[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!].[¡WILDCARD!]{ "type": "WILCARD", "name": "COLUMN_NAME" }[¡WILDCARD!]}");
+     ]]>
+    </MODEL_FIELDS_READ>
+    <MODEL_FIELDS_PRINT>
+      <![CDATA[
+            Console.WriteLine($"[¡WILDCARD!]{ "type": "WILCARD", "name": "COLUMN_NAME" }[¡WILDCARD!]: {dto[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!].[¡WILDCARD!]{ "type": "WILCARD", "name": "COLUMN_NAME" }[¡WILDCARD!]}");
+     ]]>
+    </MODEL_FIELDS_PRINT>
+    <MODEL_FIELDS_PRINT_DEPENDENCIES>
+      <![CDATA[
+            Console.WriteLine($"[¡WILDCARD!]{ "type": "WILCARD", "name": "COLUMN_NAME" }[¡WILDCARD!] (ID): {dto[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!].[¡WILDCARD!]{ "type": "WILCARD", "name": "COLUMN_NAME", "transform": "ID(.+)$", "transformGroup": "1"  }[¡WILDCARD!].ID}");
+     ]]>
+    </MODEL_FIELDS_PRINT_DEPENDENCIES>    
+    <MODEL_FIELDS_LIST>
+      <![CDATA[
+            Console.WriteLine($"[¡WILDCARD!]{ "type": "WILCARD", "name": "COLUMN_NAME" }[¡WILDCARD!]: {dto[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!]List[index].[¡WILDCARD!]{ "type": "WILCARD", "name": "COLUMN_NAME" }[¡WILDCARD!]}");
+      ]]>
+    </MODEL_FIELDS_LIST>
+    <MODEL_FIELDS_UPDATE>
+      <![CDATA[
+            Console.Write($"[¡WILDCARD!]{ "type": "WILCARD", "name": "COLUMN_NAME" }[¡WILDCARD!] (${dto[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!].[¡WILDCARD!]{ "type": "WILCARD", "name": "COLUMN_NAME" }[¡WILDCARD!]}): ");
+            string str[¡WILDCARD!]{ "type": "WILCARD", "name": "COLUMN_NAME" }[¡WILDCARD!] = Console.ReadLine();
+            if (!string.IsNullOrEmpty(str[¡WILDCARD!]{ "type": "WILCARD", "name": "COLUMN_NAME" }[¡WILDCARD!])) 
+            {
+                dto[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!].[¡WILDCARD!]{ "type": "WILCARD", "name": "COLUMN_NAME" }[¡WILDCARD!] = Convert.To[¡WILDCARD!]{ "type": "WILCARD", "name": "DATA_TYPE" }[¡WILDCARD!](str[¡WILDCARD!]{ "type": "WILCARD", "name": "COLUMN_NAME" }[¡WILDCARD!]);
+            }
+       	]]>
+    </MODEL_FIELDS_UPDATE>
+    <MODEL_FIELDS_UPDATE_DEPENDENCIES>
+      <![CDATA[
+            Console.Write($"[¡WILDCARD!]{ "type": "WILCARD", "name": "COLUMN_NAME" }[¡WILDCARD!] (${dto[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!].[¡WILDCARD!]{ "type": "WILCARD", "name": "COLUMN_NAME" }[¡WILDCARD!]}): ");
+            string str[¡WILDCARD!]{ "type": "WILCARD", "name": "COLUMN_NAME" }[¡WILDCARD!] = Console.ReadLine();
+            if (!string.IsNullOrEmpty(str[¡WILDCARD!]{ "type": "WILCARD", "name": "COLUMN_NAME" }[¡WILDCARD!])) 
+            {
+                dto[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!].[¡WILDCARD!]{ "type": "WILCARD", "name": "COLUMN_NAME" }[¡WILDCARD!] = new DTO.[¡WILDCARD!]{ "type": "WILCARD", "name": "COLUMN_NAME" }[¡WILDCARD!]() { ID = Convert.ToInt64(Console.ReadLine()) };
+            }
+       	]]>
+    </MODEL_FIELDS_UPDATE_DEPENDENCIES>
+  </TEMPLATES>
+</TEMPLATE_FILE>

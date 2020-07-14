@@ -1,0 +1,84 @@
+﻿<TEMPLATE_FILE>
+  <MAIN>
+    <![CDATA[
+<template>
+   <div id="demo">
+        <form id="search">
+          <app-filter-data :data="[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME", "format": "TO_LOWER" }[¡WILDCARD!]" @getData="getData"></app-filter-data>
+          <div v-if="actionType != 'NO-ACTION'" class="text-right"><router-link v-bind:to="'/crud/[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME", "format": "TO_LOWER" }[¡WILDCARD!]/create'"><a>[ CREAR ]</a></router-link></div>
+        </form>
+        <br>
+        <app-data-grid
+            :data="[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME", "format": "TO_LOWER" }[¡WILDCARD!]_filtered"
+            :columns="gridColumns"
+            :filter-key="searchQuery"
+            @selectedRow="selectedRow">
+            <template  v-if="actionType != 'NO-ACTION'">
+              <template :slot="'additional-column-header'">
+                <th><span>Editar</span></th>
+                <th><span>Eliminar</span></th>
+              </template>
+              <template v-for="object_[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME", "format": "TO_LOWER" }[¡WILDCARD!] in [¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME", "format": "TO_LOWER" }[¡WILDCARD!]">
+                <td :key="['additional-column-update', object_[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME", "format": "TO_LOWER" }[¡WILDCARD!].id].join('-')" :slot="['additional-column-body', object_[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME", "format": "TO_LOWER" }[¡WILDCARD!].id].join('-')"><router-link v-bind:to="'./update/' + object_[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME", "format": "TO_LOWER" }[¡WILDCARD!].id"><a>[ + ]</a></router-link></td>
+                <td :key="['additional-column-delete', object_[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME", "format": "TO_LOWER" }[¡WILDCARD!].id].join('-')" :slot="['additional-column-body', object_[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME", "format": "TO_LOWER" }[¡WILDCARD!].id].join('-')"><router-link v-bind:to="'./delete/' + object_[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME", "format": "TO_LOWER" }[¡WILDCARD!].id"><a>[ - ]</a></router-link></td>
+              </template>
+            </template>
+        </app-data-grid>
+    </div>
+</template>
+
+<script>
+import axios from "axios";
+import DataGrid from "../commons/datagrid.vue";
+import FilterData from "../commons/filterdata.vue";
+
+export default {
+  props: ["actionType"],
+  components: {
+    appDataGrid: DataGrid,
+    appFilterData: FilterData,
+  },
+  data() {
+    return {
+      searchQuery: "",
+      gridColumns: [
+[¡WILDCARD!]{ "type": "TEMPLATE", "name": "GRID_COLUMNS", "repeatBy": "COLUMN_NAME" }[¡WILDCARD!]
+      ],
+      [¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME", "format": "TO_LOWER" }[¡WILDCARD!]: [],
+      [¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME", "format": "TO_LOWER" }[¡WILDCARD!]_filtered: [],
+    };
+  },
+  methods: { 
+      getData(data) {
+        this.[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME", "format": "TO_LOWER" }[¡WILDCARD!]_filtered = data;    
+      }, 
+		 selectedRow(entity) {
+			this.$emit('selectedRow', entity);
+      }, 
+  },
+  created() {
+    axios
+      .get("[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME", "format": "TO_LOWER" }[¡WILDCARD!]")
+      .then(response => {
+        this.[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME", "format": "TO_LOWER" }[¡WILDCARD!] = response.data;
+        this.[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME", "format": "TO_LOWER" }[¡WILDCARD!]_filtered = response.data;
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }
+};
+</script>
+
+<style>
+</style>
+	]]>
+  </MAIN>
+  <TEMPLATES>
+    <GRID_COLUMNS>
+      <![CDATA[
+      "[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME", "format": "TO_LOWER" }[¡WILDCARD!]",
+		]]>
+    </GRID_COLUMNS>
+  </TEMPLATES>
+</TEMPLATE_FILE>

@@ -1,0 +1,49 @@
+﻿<TEMPLATE_FILE>
+  <MAIN>
+    <![CDATA[
+using System.Threading.Tasks;
+using Core;
+using Core.Repositories;
+using Data.Repositories;
+
+namespace Data
+{
+    public class UnitOfWork : IUnitOfWork
+    {
+        private readonly [¡WILDCARD!]{ "type": "WILCARD", "name": "PROYECT" }[¡WILDCARD!]DbContext _context;
+        
+       [¡WILDCARD!]{ "type": "TEMPLATE", "name": "REPOSITORIES_DECLARATION", "repeatBy": "TABLE_NAME" }[¡WILDCARD!]
+    
+        public UnitOfWork([¡WILDCARD!]{ "type": "WILCARD", "name": "PROYECT" }[¡WILDCARD!]DbContext context)
+        {
+            this._context = context;
+        }
+
+       [¡WILDCARD!]{ "type": "TEMPLATE", "name": "REPOSITORIES_CREATION", "repeatBy": "TABLE_NAME" }[¡WILDCARD!]
+    
+        public async Task<int> CommitAsync()
+        {
+            return await _context.SaveChangesAsync();
+        }
+
+        public void Dispose()
+        {
+            _context.Dispose();
+        }
+    }
+}
+]]>
+  </MAIN>
+  <TEMPLATES>
+    <REPOSITORIES_DECLARATION>
+      <![CDATA[
+       private [¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!]Repository _[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME", "format": "FIRST_LETTER_TO_LOWER" }[¡WILDCARD!]Repository;
+      	]]>
+    </REPOSITORIES_DECLARATION>
+    <REPOSITORIES_CREATION>
+      <![CDATA[
+        public I[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!]Repository [¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!]Repository => _[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME", "format": "FIRST_LETTER_TO_LOWER" }[¡WILDCARD!]Repository = _[¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME", "format": "FIRST_LETTER_TO_LOWER" }[¡WILDCARD!]Repository ?? new [¡WILDCARD!]{ "type": "WILCARD", "name": "TABLE_NAME" }[¡WILDCARD!]Repository(_context);
+      	]]>
+    </REPOSITORIES_CREATION>
+  </TEMPLATES>
+</TEMPLATE_FILE>
