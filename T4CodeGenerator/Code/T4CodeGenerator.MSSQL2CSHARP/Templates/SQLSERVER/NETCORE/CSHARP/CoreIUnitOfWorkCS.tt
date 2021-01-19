@@ -1,0 +1,34 @@
+﻿using System;
+using System.Threading.Tasks;
+using Core.Repositories;
+
+namespace Core
+{
+    public partial interface IUnitOfWork : IDisposable
+    {
+<# 
+    // Se repite por cada tabla en la base de datos
+    foreach (string tableName in Configuration.PurgeExcludedClasses(Configuration.MSSQL.GetRepeatersTables())) 
+    {    
+#>
+        I<#= tableName #>Repository <#= tableName #>Repository { get; }
+<# 
+    }
+#>   
+        IAuditLogRepository AuditLogRepository { get; }
+
+        Task AddAuditLog(string token, string eventType, string entityName, object entity, bool commit = true);
+
+        Task<int> CommitAsync();
+
+        Task<int> CommitAsync(string access_token, string eventType, string entityName, object entity);
+    }
+}
+
+<#@ template language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="T4CodeGenerator.MSSQL2CSHARP.Database" #>
+<#@ import namespace="T4CodeGenerator.MSSQL2CSHARP.Helpers" #>

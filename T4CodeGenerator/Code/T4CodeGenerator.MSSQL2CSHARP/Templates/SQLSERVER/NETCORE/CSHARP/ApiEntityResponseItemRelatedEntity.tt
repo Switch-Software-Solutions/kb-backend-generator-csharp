@@ -1,0 +1,32 @@
+﻿<#      
+// Se repite por cada tabla en la base de datos
+string tableName = Configuration.TableName;
+#> 
+using System;
+using System.Collections.Generic;
+
+namespace Api.Endpoints.<#= Configuration.ParentTableName #>.Response.Read.RelatedEntities
+{
+    public class <#= Configuration.ParentTableName #>Response<#= tableName #>
+    {
+<# 
+    // Se repite por cada columna de la tabla (NO ForeingKey)
+    foreach(string columnName in Configuration.MSSQL.GetRepeatersColumns(tableName))
+    {
+        InformationSchemaColumns informationSchemaColumn =  Configuration.MSSQL.GetMetadataByTableNameAndColumnName(tableName, columnName);
+#>
+        public <#= Configuration.MSSQL.DataTypeMapping(informationSchemaColumn.DATA_TYPE) #> <#= informationSchemaColumn.COLUMN_NAME #> { get; set; }
+<#  
+    }
+#>
+    }
+}
+
+<#@ template language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="T4CodeGenerator.MSSQL2CSHARP.Database" #>
+<#@ import namespace="T4CodeGenerator.MSSQL2CSHARP.Helpers" #>
+

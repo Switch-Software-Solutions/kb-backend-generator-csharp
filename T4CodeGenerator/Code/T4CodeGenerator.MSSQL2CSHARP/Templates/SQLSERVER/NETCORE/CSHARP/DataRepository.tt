@@ -1,0 +1,70 @@
+﻿<#// Se repite por cada tabla en la base de datos
+string tableName = Configuration.TableName;#>
+using Core.Models;
+using Core.Repositories;
+using Microsoft.EntityFrameworkCore;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace Data.Repositories
+{
+    public partial class <#= tableName #>Repository : Repository<<#= tableName #>>, I<#= tableName #>Repository
+    {
+        public <#= tableName #>Repository(DbContextInstance context) 
+            : base(context)
+        { }
+     
+        private DbContextInstance DbContextInstance
+        {
+            get { return Context as DbContextInstance; }
+        }
+
+        public override async ValueTask<<#= tableName #>> GetFullByIdAsync(int id)
+        {
+            return await Context.Set<<#= tableName #>>()
+                .Where(<#= Utils.FirstLetterToLower(tableName) #> => <#= Utils.FirstLetterToLower(tableName) #>.Id == id)
+<#  
+    // Se repite por cada ForeingKey de la tabla
+    foreach(InformationSchemaColumns informationSchemaColumn in Configuration.MSSQL.GetRepeatersReferencedTablesInformationFromThis(tableName, Configuration.ExcludedClasses))
+    {
+#>
+                .Include(<#= Utils.FirstLetterToLower(tableName) #> => <#= Utils.FirstLetterToLower(tableName) #>.<#= Utils.RemoveId(informationSchemaColumn.COLUMN_NAME) #>)
+<#       
+    }
+#>
+<#  
+    List<InformationSchemaColumns> informationSchemaColumnList = Configuration.MSSQL.GetRepeatersReferencedTablesNamesToThis(tableName, Configuration.ExcludedClasses);
+
+    // Se repite por cada tabla que hace referencia a esta tabla
+    foreach(InformationSchemaColumns informationSchemaColumn in informationSchemaColumnList)
+    {
+        // Las referencias a la misma tabla no se manejan como colecciones
+        if (informationSchemaColumn.PARENT_TABLE_NAME != informationSchemaColumn.REFERENCED_TABLE_NAME) 
+        {
+            if (informationSchemaColumnList.FindAll(isc => isc.TABLE_NAME == informationSchemaColumn.TABLE_NAME).Count() > 1) 
+            {
+#>
+                .Include(<#= Utils.FirstLetterToLower(tableName) #> => <#= Utils.FirstLetterToLower(tableName) #>.<#= Utils.RemoveId(informationSchemaColumn.COLUMN_NAME) #>Collection)
+<#
+            }
+		    else 
+            {
+#>
+                .Include(<#= Utils.FirstLetterToLower(tableName) #> => <#= Utils.FirstLetterToLower(tableName) #>.<#= informationSchemaColumn.TABLE_NAME #>Collection)
+<#          }
+        }
+    }
+#>
+                .SingleOrDefaultAsync();
+        }
+    }
+}
+
+
+<#@ template language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="T4CodeGenerator.MSSQL2CSHARP.Database" #>
+<#@ import namespace="T4CodeGenerator.MSSQL2CSHARP.Helpers" #>

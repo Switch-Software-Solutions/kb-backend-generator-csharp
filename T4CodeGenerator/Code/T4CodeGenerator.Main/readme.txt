@@ -1,0 +1,1 @@
+﻿ T4CodeGenerator.Main.exe --ProjectName "Indexer" --BasePath "D:\Temp\T4CodeGenerator\Indexer" --DatabaseUserName "usr_indexer" --DatabasePassword "Ir123123" --DatabaseName "Indexer" --DatabaseServer "Localhost\SQLEXPRESS" --saveondisk "true" 

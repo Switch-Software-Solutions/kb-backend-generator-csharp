@@ -1,0 +1,39 @@
+﻿<#      
+// Se repite por cada tabla en la base de datos
+string tableName = Configuration.TableName;
+#> 
+using System;    
+
+namespace Api.Endpoints.<#= tableName #>.Request.Create
+{
+    public partial class <#= tableName #>RequestCreate
+    {
+<# 
+    // Se repite por cada columna de la tabla (NO ForeingKey) - Se excluye la clave primaria
+    foreach(string columnName in Configuration.MSSQL.GetRepeatersColumns(tableName, true))
+    {
+        
+
+        InformationSchemaColumns informationSchemaColumn =  Configuration.MSSQL.GetMetadataByTableNameAndColumnName(tableName, columnName);
+#>
+        public <#= Configuration.MSSQL.DataTypeMapping(informationSchemaColumn.DATA_TYPE) #><#= informationSchemaColumn.IS_NULLABLE ? "?" : string.Empty #> <#= informationSchemaColumn.COLUMN_NAME #> { get; set; }
+<#  
+    }
+    // Se repite por cada ForeingKey de la tabla
+    foreach(InformationSchemaColumns informationSchemaColumn in Configuration.MSSQL.GetRepeatersReferencedTablesInformationFromThis(tableName, Configuration.ExcludedClasses))
+    {
+#>
+        public <#= Configuration.MSSQL.DataTypeMapping(informationSchemaColumn.DATA_TYPE) #><#= informationSchemaColumn.IS_NULLABLE ? "?" : string.Empty #> <#= informationSchemaColumn.COLUMN_NAME #> { get; set; }
+<#       
+    }
+#>
+    }
+}
+
+<#@ template language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="T4CodeGenerator.MSSQL2CSHARP.Database" #>
+<#@ import namespace="T4CodeGenerator.MSSQL2CSHARP.Helpers" #>

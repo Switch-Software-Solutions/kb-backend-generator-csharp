@@ -1,0 +1,92 @@
+﻿<#      
+// Se repite por cada tabla en la base de datos
+foreach (string tableName in Configuration.MSSQL.GetRepeatersTables()) {
+#> 
+<template>
+  <div class="widget-container mx-5 mt-5 pt-5" id="form-demo">
+    <h1><#= tableName #></h1>
+    <hr /> 
+    <h5 class="dashed mb-4 mt-4">Edit</h5>
+    <form id="main_form" @submit="handleSubmit">
+      <DxForm
+        :form-data.sync="<#= tableName #>"
+        :read-only="false"
+        :label-location="'top'"
+        :col-count="5"
+        :show-colon-after-label="true"
+        :show-validation-summary="true"
+        validation-group="customerData">
+
+<# 
+    // Se repite por cada columna de la tabla (NO ForeingKey)
+    foreach(string columnName in Configuration.MSSQL.GetRepeatersColumns(tableName))
+    {
+        InformationSchemaColumns informationSchemaColumn = Configuration.MSSQL.GetMetadataByTableNameAndColumnName(tableName, columnName);
+        switch (informationSchemaColumn.DATA_TYPE) 
+        {  
+            case "datetime2":   
+            case "datetime": 
+#>
+       <DxItem
+          :editor-options="{value: null, width: '100%'}"
+          data-field="<#= FirstLetterToLower(informationSchemaColumn.COLUMN_NAME) #>" 
+          editor-type="dxDateBox"
+        />
+<#                  
+                break;
+            default:
+#>
+
+        <DxSimpleItem data-field="<#= FirstLetterToLower(informationSchemaColumn.COLUMN_NAME) #>" :col-span="2">
+          <DxLabel text="<#= CustomBHC(informationSchemaColumn.COLUMN_NAME)  #>" xxxxx <#= informationSchemaColumn.COLUMN_NAME #> />
+<#= !informationSchemaColumn.IS_NULLABLE? $"<DxRequiredRule message=\"" + CustomBHC(informationSchemaColumn.COLUMN_NAME) + " is required\" />": string.Empty #>
+        </DxSimpleItem>
+<#
+                break;
+        }
+
+#>
+         
+
+<#  
+    }
+#> 
+    </DxForm>
+      <div class="row py-5">
+        <DxButton
+          text="Save changes"
+          class="ml-auto mr-3"
+          icon="check"
+          type="default"
+          styling-mode="contained"
+          :use-submit-behavior="true"
+        />
+      </div>
+
+      <h1>{{ errorMessage }}</h1>
+    </form>
+  </div>
+</template>
+<# 
+  // End of file.
+  SaveOutput("Front\\Forms\\" + tableName + ".generated.vue");
+}
+#>
+
+<#@ template debug="false" hostspecific="true" language="C#" #>
+
+<#@ assembly name="System.Core" #>
+
+<#@ import namespace="System" #>
+<#@ import namespace="System.IO" #>
+<#@ import namespace="System.Collections.Generic" #> 
+<#@ import namespace="System.Text.RegularExpressions" #>
+<#@ template debug="false" hostspecific="true" language="C#" #>
+ 
+<#@ assembly name="System.Core" #>
+
+<#@ include file="$(ProjectDir)Helpers\Utils.ttinclude" #>
+<#@ assembly name="$(TargetDir)T4CodeGenerator.MSSQL2CSHARP.dll" #>
+<#@ import namespace="T4CodeGenerator.MSSQL2CSHARP.Database" #>
+
+<#@ output extension=".ttresult" #>      

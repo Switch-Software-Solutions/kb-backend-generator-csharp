@@ -1,0 +1,102 @@
+﻿<#      
+// Se repite por cada tabla en la base de datos
+string tableName = Configuration.TableName;
+#> 
+
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using Core;
+using Core.Models;
+using Core.Services;
+
+namespace Services
+{
+    public partial class <#= tableName #>Service : I<#= tableName #>Service
+    {
+        private readonly IUnitOfWork _unitOfWork;
+        public <#= tableName #>Service(IUnitOfWork unitOfWork)
+        {
+            this._unitOfWork = unitOfWork;
+        }
+
+        public async Task<<#= tableName #>> Create(<#= tableName #> new<#= tableName #>, string access_token, bool commit = true)
+        {
+            await _unitOfWork.<#= tableName #>Repository.AddAsync(new<#= tableName #>);
+            
+            if (commit)
+            {
+                await _unitOfWork.CommitAsync(access_token, "CREATE", "<#= tableName #>", new<#= tableName #>);  
+            }
+            else 
+            {
+                await _unitOfWork.AddAuditLog(access_token, "CREATE", "<#= tableName #>", new<#= tableName #>, false);
+            }
+
+            return new<#= tableName #>;
+        }
+
+        public async Task Delete(<#= tableName #> <#= Utils.FirstLetterToLower(tableName) #>, string access_token, bool commit = true)
+        {
+            _unitOfWork.<#= tableName #>Repository.Remove(<#= Utils.FirstLetterToLower(tableName) #>);
+
+            if (commit)
+            {
+                await _unitOfWork.CommitAsync(access_token, "DELETE", "<#= tableName #>", <#= Utils.FirstLetterToLower(tableName) #>);
+            }
+            else 
+            {
+                await _unitOfWork.AddAuditLog(access_token, "DELETE", "<#= tableName #>", <#= Utils.FirstLetterToLower(tableName) #>, false);
+            }
+        }
+
+        public async Task<IEnumerable<<#= tableName #>>> GetAll()
+        {
+            return await _unitOfWork.<#= tableName #>Repository.GetAllAsync();
+        }
+
+        public async Task<IEnumerable<<#= tableName #>>> GetPaged(int page, int pageSize, string order, string sort)
+        {
+            return await _unitOfWork.<#= tableName #>Repository.GetPagedAsync(page, pageSize, order, sort);
+        }
+
+        public async Task<<#= tableName #>> GetById(int id)
+        {
+            return await _unitOfWork.<#= tableName #>Repository.GetByIdAsync(id);
+        }
+
+        public async Task<<#= tableName #>> GetFullById(int id)
+        {
+            return await _unitOfWork.<#= tableName #>Repository.GetFullByIdAsync(id);
+        }
+        
+        public async Task Update(<#= tableName #> <#= Utils.FirstLetterToLower(tableName) #>ToBeUpdated, <#= tableName #> <#= Utils.FirstLetterToLower(tableName) #>, string access_token, bool commit = true)
+        {
+<#
+  // Se repite por cada columna de la tabla (NO ForeingKey) - Se excluye la PK
+    foreach(string columnName in Configuration.MSSQL.GetRepeatersColumns(tableName, true))
+    {
+        InformationSchemaColumns informationSchemaColumn = Configuration.MSSQL.GetMetadataByTableNameAndColumnName(tableName, columnName);
+#>
+            <#= Utils.FirstLetterToLower(tableName) #>ToBeUpdated.<#= columnName #> = <#= Utils.FirstLetterToLower(tableName) #>.<#= columnName #>;
+<#  
+    }
+#>
+            if (commit)
+            {
+                await _unitOfWork.CommitAsync(access_token, "UPDATE", "<#= tableName #>", <#= Utils.FirstLetterToLower(tableName) #>ToBeUpdated);
+            }
+            else 
+            {
+                await _unitOfWork.AddAuditLog(access_token, "UPDATE", "<#= tableName #>", <#= Utils.FirstLetterToLower(tableName) #>ToBeUpdated, false);
+            }
+        }
+    }
+}
+
+<#@ template language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="T4CodeGenerator.MSSQL2CSHARP.Database" #>
+<#@ import namespace="T4CodeGenerator.MSSQL2CSHARP.Helpers" #>

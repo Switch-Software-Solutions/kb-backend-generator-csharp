@@ -1,0 +1,84 @@
+﻿<#      
+// Se repite por cada tabla en la base de datos
+string tableName = Configuration.TableName;
+#> 
+
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Core.Models;
+
+namespace Data.Configurations
+{
+    public partial class <#= tableName #>Configuration : IEntityTypeConfiguration<<#= tableName #>>
+    {
+        public void Configure(EntityTypeBuilder<<#= tableName #>> builder)
+        {
+<# 
+    // Se repite por cada columna de la tabla (NO ForeingKey)
+    foreach(string columnName in Configuration.MSSQL.GetRepeatersColumns(tableName))
+    {
+        InformationSchemaColumns informationSchemaColumn =  Configuration.MSSQL.GetMetadataByTableNameAndColumnName(tableName, columnName);
+
+        string result = string.Empty;
+
+        result += informationSchemaColumn.PRIMARY_KEY ? $"            builder.HasKey({tableName.ToLower()} => {tableName.ToLower()}.{informationSchemaColumn.COLUMN_NAME});" + "\n\n" : string.Empty;
+        result += $"            builder.Property({tableName.ToLower()} => {tableName.ToLower()}.{informationSchemaColumn.COLUMN_NAME})";
+        result += informationSchemaColumn.IS_NULLABLE ? string.Empty : $".IsRequired()";
+        result += informationSchemaColumn.CHARACTER_MAXIMUM_LENGTH > 0 ? $".HasMaxLength({informationSchemaColumn.CHARACTER_MAXIMUM_LENGTH})" : string.Empty;
+        result += informationSchemaColumn.IS_IDENTITY ? ".UseIdentityColumn();\n" : ";\n";
+       
+#>
+<#= result #>
+<#  
+    }
+
+	List<InformationSchemaColumns> informationSchemaColumnList = Configuration.MSSQL.GetRepeatersReferencedTablesInformationFromThis(tableName, Configuration.ExcludedClasses); 
+
+    // Se repite por cada ForeingKey de la tabla
+    foreach(InformationSchemaColumns informationSchemaColumn in informationSchemaColumnList)
+    {
+        string result = string.Empty;
+        // Si es una referencia a la misma tabla se maneja distinto
+        if (informationSchemaColumn.PARENT_TABLE_NAME != informationSchemaColumn.REFERENCED_TABLE_NAME) 
+        {
+            if (informationSchemaColumnList.FindAll(isc => isc.REFERENCED_TABLE_NAME == informationSchemaColumn.REFERENCED_TABLE_NAME).Count() > 1) 
+            {
+                result += $"            builder" + "\n";
+                result += $"                .HasOne({tableName.ToLower()} => {tableName.ToLower()}.{Utils.RemoveId(informationSchemaColumn.COLUMN_NAME)})" + "\n";
+                result += $"                .WithMany({informationSchemaColumn.REFERENCED_TABLE_NAME.ToLower()} => {informationSchemaColumn.REFERENCED_TABLE_NAME.ToLower()}.{Utils.RemoveId(informationSchemaColumn.PARENT_TABLE_COLUMN)}Collection)" + "\n";
+                result += $"                .HasForeignKey({tableName.ToLower()} => {tableName.ToLower()}.{informationSchemaColumn.COLUMN_NAME})" + "\n";
+                result += $"                .OnDelete(DeleteBehavior.NoAction);" + "\n";
+            }
+		    else 
+            {
+                result += $"            builder" + "\n";
+                result += $"                .HasOne({tableName.ToLower()} => {tableName.ToLower()}.{Utils.RemoveId(informationSchemaColumn.COLUMN_NAME)})" + "\n";
+                result += $"                .WithMany({informationSchemaColumn.REFERENCED_TABLE_NAME.ToLower()} => {informationSchemaColumn.REFERENCED_TABLE_NAME.ToLower()}.{tableName}Collection)" + "\n";
+                result += $"                .HasForeignKey({tableName.ToLower()} => {tableName.ToLower()}.{informationSchemaColumn.COLUMN_NAME})" + "\n";
+                result += $"                .OnDelete(DeleteBehavior.NoAction);" + "\n"; 
+            }
+        }
+		else 
+        {
+                result += $"            builder" + "\n";
+                result += $"                .HasOne({tableName.ToLower()} => {tableName.ToLower()}.{Utils.RemoveId(informationSchemaColumn.COLUMN_NAME)})" + "\n";
+                result += $"                .WithOne()" + "\n";
+                result += $"                .OnDelete(DeleteBehavior.NoAction);" + "\n";
+        }               
+#>
+<#= result #>
+<#       
+    }
+#>
+            builder.ToTable("<#= tableName #>");
+        }
+    }
+}
+
+<#@ template language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="T4CodeGenerator.MSSQL2CSHARP.Database" #>
+<#@ import namespace="T4CodeGenerator.MSSQL2CSHARP.Helpers" #>

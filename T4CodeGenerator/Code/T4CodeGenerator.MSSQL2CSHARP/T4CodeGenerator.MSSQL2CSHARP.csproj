@@ -1,0 +1,263 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{E171BCB4-0693-4061-8FE9-2246BBE389B2}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>T4CodeGenerator.MSSQL2CSHARP</RootNamespace>
+    <AssemblyName>T4CodeGenerator.MSSQL2CSHARP</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.VisualStudio.TextTemplating.15.0, Version=16.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Database\DatabaseMetadata.cs" />
+    <Compile Include="Database\InformationSchemaColumns.cs" />
+    <Compile Include="Database\MSSQL.cs" />
+    <Compile Include="Database\SchemaTable.cs" />
+    <Compile Include="Helpers\Utils.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Templates\SQLSERVER\NETCORE\CSHARP\ApiAppSettingsJSON.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ApiAppSettingsJSON.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Templates\SQLSERVER\NETCORE\CSHARP\ApiEntityResponseItemRelatedEntity.cs">
+      <DependentUpon>ApiEntityResponseItemRelatedEntity.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Templates\SQLSERVER\NETCORE\CSHARP\ApiEntityResponseItemList.cs">
+      <DependentUpon>ApiEntityResponseItemList.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Templates\SQLSERVER\NETCORE\CSHARP\CoreIUnitOfWorkCS.cs">
+      <DependentUpon>CoreIUnitOfWorkCS.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Templates\SQLSERVER\NETCORE\CSHARP\CoreIRepositoryCS.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CoreIRepositoryCS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Templates\SQLSERVER\NETCORE\CSHARP\ServiceService.cs">
+      <DependentUpon>ServiceService.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Templates\SQLSERVER\NETCORE\CSHARP\DataUnitOfWork.cs">
+      <DependentUpon>DataUnitOfWork.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Templates\SQLSERVER\NETCORE\CSHARP\DataRepository.cs">
+      <DependentUpon>DataRepository.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Templates\SQLSERVER\NETCORE\CSHARP\DataDbContextCS.cs">
+      <DependentUpon>DataDbContextCS.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Templates\SQLSERVER\NETCORE\CSHARP\DataConfiguration.cs">
+      <DependentUpon>DataConfiguration.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Templates\SQLSERVER\NETCORE\CSHARP\CoreIService.cs">
+      <DependentUpon>CoreIService.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Templates\SQLSERVER\NETCORE\CSHARP\CoreIRepository.cs">
+      <DependentUpon>CoreIRepository.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Templates\SQLSERVER\NETCORE\CSHARP\CoreModel.cs">
+      <DependentUpon>CoreModel.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Templates\SQLSERVER\NETCORE\CSHARP\ApiStartupCS.cs">
+      <DependentUpon>ApiStartupCS.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Templates\SQLSERVER\NETCORE\CSHARP\ApiMappingCS.cs">
+      <DependentUpon>ApiMappingCS.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Templates\SQLSERVER\NETCORE\CSHARP\ApiEntityController.cs">
+      <DependentUpon>ApiEntityController.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Templates\SQLSERVER\NETCORE\CSHARP\ApiEntityRequestCreate.cs">
+      <DependentUpon>ApiEntityRequestCreate.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Templates\SQLSERVER\NETCORE\CSHARP\ApiEntityRequestCreateValidator.cs">
+      <DependentUpon>ApiEntityRequestCreateValidator.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Templates\SQLSERVER\NETCORE\CSHARP\ApiEntityRequestUpdateValidator.cs">
+      <DependentUpon>ApiEntityRequestUpdateValidator.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Templates\SQLSERVER\NETCORE\CSHARP\ApiEntityRequestUpdate.cs">
+      <DependentUpon>ApiEntityRequestUpdate.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Templates\SQLSERVER\NETCORE\CSHARP\ApiEntityResponseItem.cs">
+      <DependentUpon>ApiEntityResponseItem.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Configuration.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Templates\SQLSERVER\NETCORE\CSHARP\ApiAppSettingsJSON.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>ApiAppSettingsJSON.cs</LastGenOutput>
+    </Content>
+    <Content Include="Templates\SQLSERVER\NETCORE\CSHARP\Front.Form.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Front.Form.ttresult</LastGenOutput>
+    </Content>
+    <Content Include="Templates\SQLSERVER\NETCORE\CSHARP\ApiEntityResponseItemRelatedEntity.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>ApiEntityResponseItemRelatedEntity.cs</LastGenOutput>
+    </Content>
+    <Content Include="Templates\SQLSERVER\NETCORE\CSHARP\ApiEntityResponseItemList.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>ApiEntityResponseItemList.cs</LastGenOutput>
+    </Content>
+    <Content Include="Templates\SQLSERVER\NETCORE\CSHARP\CoreIUnitOfWorkCS.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>CoreIUnitOfWorkCS.cs</LastGenOutput>
+    </Content>
+    <Content Include="Templates\SQLSERVER\NETCORE\CSHARP\ServiceService.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>ServiceService.cs</LastGenOutput>
+    </Content>
+    <Content Include="Templates\SQLSERVER\NETCORE\CSHARP\DataUnitOfWork.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>DataUnitOfWork.cs</LastGenOutput>
+    </Content>
+    <Content Include="Templates\SQLSERVER\NETCORE\CSHARP\DataRepository.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>DataRepository.cs</LastGenOutput>
+    </Content>
+    <Content Include="Templates\SQLSERVER\NETCORE\CSHARP\DataDbContextCS.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>DataDbContextCS.cs</LastGenOutput>
+    </Content>
+    <Content Include="Templates\SQLSERVER\NETCORE\CSHARP\DataConfiguration.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>DataConfiguration.cs</LastGenOutput>
+    </Content>
+    <Content Include="Templates\SQLSERVER\NETCORE\CSHARP\CoreIService.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>CoreIService.cs</LastGenOutput>
+    </Content>
+    <Content Include="Templates\SQLSERVER\NETCORE\CSHARP\CoreIRepository.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>CoreIRepository.cs</LastGenOutput>
+    </Content>
+    <Content Include="Templates\SQLSERVER\NETCORE\CSHARP\CoreModel.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>CoreModel.cs</LastGenOutput>
+    </Content>
+    <Content Include="Templates\SQLSERVER\NETCORE\CSHARP\CoreIRepositoryCS.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>CoreIRepositoryCS.cs</LastGenOutput>
+    </Content>
+    <Content Include="Templates\SQLSERVER\NETCORE\CSHARP\ApiStartupCS.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>ApiStartupCS.cs</LastGenOutput>
+    </Content>
+    <Content Include="Templates\SQLSERVER\NETCORE\CSHARP\ApiMappingCS.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>ApiMappingCS.cs</LastGenOutput>
+    </Content>
+    <Content Include="Templates\SQLSERVER\NETCORE\CSHARP\ApiEntityController.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>ApiEntityController.cs</LastGenOutput>
+    </Content>
+    <Content Include="Templates\SQLSERVER\NETCORE\CSHARP\ApiEntityRequestCreate.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>ApiEntityRequestCreate.cs</LastGenOutput>
+    </Content>
+    <Content Include="Templates\SQLSERVER\NETCORE\CSHARP\ApiEntityRequestCreateValidator.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>ApiEntityRequestCreateValidator.cs</LastGenOutput>
+    </Content>
+    <Content Include="Templates\SQLSERVER\NETCORE\CSHARP\ApiEntityRequestUpdateValidator.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>ApiEntityRequestUpdateValidator.cs</LastGenOutput>
+    </Content>
+    <Content Include="Templates\SQLSERVER\NETCORE\CSHARP\ApiEntityRequestUpdate.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>ApiEntityRequestUpdate.cs</LastGenOutput>
+    </Content>
+    <Content Include="Templates\SQLSERVER\NETCORE\CSHARP\ApiEntityResponseItem.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>ApiEntityResponseItem.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Templates\SQLSERVER\NETCORE\CSHARP\Front.Form.ttresult">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Front.Form.tt</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Templates\SQLSERVER\NETCORE\CSHARP\EMPTY_PROJECT\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

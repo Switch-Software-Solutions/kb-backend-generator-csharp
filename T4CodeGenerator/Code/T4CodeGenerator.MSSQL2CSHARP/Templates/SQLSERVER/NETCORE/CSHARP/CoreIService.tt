@@ -1,0 +1,32 @@
+﻿<#      
+// Se repite por cada tabla en la base de datos
+string tableName = Configuration.TableName;
+#> 
+
+using System;
+using System.Collections.Generic;
+using System.Linq.Expressions;
+using System.Threading.Tasks;
+using Core.Models;
+
+namespace Core.Services
+{
+    public partial interface I<#= tableName #>Service
+    {
+        Task<IEnumerable<<#= tableName #>>> GetAll();
+        Task<IEnumerable<<#= tableName #>>> GetPaged(int page, int pageSize, string order, string sort);
+        Task<<#= tableName #>> GetById(int id);
+        Task<<#= tableName #>> GetFullById(int id);
+        Task<<#= tableName #>> Create(<#= tableName #> new<#= tableName #>, string access_token, bool commit = true); 
+        Task Update(<#= tableName #> <#= Utils.FirstLetterToLower(tableName) #>ToBeUpdated, <#= tableName #> <#= Utils.FirstLetterToLower(tableName) #>, string access_token, bool commit = true);
+        Task Delete(<#= tableName #> <#= Utils.FirstLetterToLower(tableName) #>, string access_token, bool commit = true);
+    }
+} 
+
+<#@ template language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="T4CodeGenerator.MSSQL2CSHARP.Database" #>
+<#@ import namespace="T4CodeGenerator.MSSQL2CSHARP.Helpers" #>

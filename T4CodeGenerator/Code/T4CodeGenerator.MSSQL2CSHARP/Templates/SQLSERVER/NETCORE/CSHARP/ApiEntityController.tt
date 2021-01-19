@@ -1,0 +1,144 @@
+﻿<#      
+// Se repite por cada tabla en la base de datos
+string tableName = Configuration.TableName;
+#>  
+
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authentication;
+using AutoMapper;
+using Core.Services;
+
+namespace Api.Endpoints.<#= tableName #>
+{
+    [Route("api/[controller]")]
+    [ApiController]
+    public partial class <#= tableName #>Controller : ControllerBase
+    {
+        private readonly I<#= tableName #>Service _<#= Utils.FirstLetterToLower(tableName) #>Service;
+        private readonly IMapper _mapper;
+
+        public <#= tableName #>Controller(I<#= tableName #>Service <#= Utils.FirstLetterToLower(tableName) #>Service, IMapper mapper)
+        {
+            this._mapper = mapper;
+            this._<#= Utils.FirstLetterToLower(tableName) #>Service = <#= Utils.FirstLetterToLower(tableName) #>Service;
+        }
+
+        [HttpGet("")]
+        public async Task<ActionResult<IEnumerable<Response.List.<#= tableName #>ItemList>>> GetAll()
+        {
+            var <#= Utils.FirstLetterToLower(tableName) #>Collection = await _<#= Utils.FirstLetterToLower(tableName) #>Service.GetAll();
+            
+            var getAllResponse = _mapper.Map<IEnumerable<Core.Models.<#= tableName #>>, IEnumerable<Response.List.<#= tableName #>ItemList>>(<#= Utils.FirstLetterToLower(tableName) #>Collection);
+
+            return Ok(getAllResponse);
+        }
+
+        [HttpGet("paged")]
+        public async Task<ActionResult<IEnumerable<Response.List.<#= tableName #>ItemList>>> GetPaginated(int page, int pageSize, string order, string sort)
+        {
+            ObjectResult result = null;
+
+            if (page >= 0 && pageSize >= 1 && order != null && order != null)
+            {
+                var <#= tableName #>Collection = await _<#= Utils.FirstLetterToLower(tableName) #>Service.GetPaged(page, pageSize, order, sort);
+
+                var getPaginatedResponse = _mapper.Map<IEnumerable<Core.Models.<#= tableName #>>, IEnumerable<Response.List.<#= tableName #>ItemList>>(<#= tableName #>Collection);
+
+                result = Ok(getPaginatedResponse);
+            }
+            else
+            {
+                result = BadRequest("Invalid filters");
+            }
+
+            return result;
+        }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Response.Read.<#= tableName #>Item>> GetFullById(int id)
+        {
+            var <#= Utils.FirstLetterToLower(tableName) #> = await _<#= Utils.FirstLetterToLower(tableName) #>Service.GetFullById(id);
+          
+            var getFullByIdResponse = _mapper.Map<Core.Models.<#= tableName #>, Response.Read.<#= tableName #>Item>(<#= Utils.FirstLetterToLower(tableName) #>);
+
+            return Ok(getFullByIdResponse);
+        }
+
+        [HttpPost("")]
+        public async Task<ActionResult<Response.Read.<#= tableName #>Item>> Create([FromBody] Request.Create.<#= tableName #>RequestCreate requestCreate)
+        {
+            var validator = new Request.Create.<#= tableName #>RequestCreateValidator();
+            var validationResult = await validator.ValidateAsync(requestCreate);
+
+            if (!validationResult.IsValid)
+                return BadRequest(validationResult.Errors);
+
+            var <#= Utils.FirstLetterToLower(tableName) #>ToCreate = _mapper.Map<Request.Create.<#= tableName #>RequestCreate, Core.Models.<#= tableName #>>(requestCreate);
+
+            var access_token = await HttpContext.GetTokenAsync("access_token");
+
+            var new<#= tableName #> = await _<#= Utils.FirstLetterToLower(tableName) #>Service.Create(<#= Utils.FirstLetterToLower(tableName) #>ToCreate, access_token);
+
+            var <#= Utils.FirstLetterToLower(tableName) #> = await _<#= Utils.FirstLetterToLower(tableName) #>Service.GetFullById(new<#= tableName #>.Id);
+
+            var createResponse = _mapper.Map<Core.Models.<#= tableName #>, Response.Read.<#= tableName #>Item>(<#= Utils.FirstLetterToLower(tableName) #>);
+
+            return Ok(createResponse);
+        }
+
+        [HttpPut("{id}")]
+        public async Task<ActionResult<Response.Read.<#= tableName #>Item>> Update(int id, [FromBody] Request.Update.<#= tableName #>RequestUpdate requestUpdate)
+        {
+            var validator = new Request.Update.<#= tableName #>RequestUpdateValidator();
+            var validationResult = await validator.ValidateAsync(requestUpdate);
+
+            if (!validationResult.IsValid)
+                return BadRequest(validationResult.Errors);
+
+            var <#= Utils.FirstLetterToLower(tableName) #>ToBeUpdated = await _<#= Utils.FirstLetterToLower(tableName) #>Service.GetFullById(id);
+
+            if (<#= Utils.FirstLetterToLower(tableName) #>ToBeUpdated == null)
+                return NotFound();
+
+            var <#= Utils.FirstLetterToLower(tableName) #> = _mapper.Map<Request.Update.<#= tableName #>RequestUpdate, Core.Models.<#= tableName #>>(requestUpdate);
+
+            var access_token = await HttpContext.GetTokenAsync("access_token");
+
+            await _<#= Utils.FirstLetterToLower(tableName) #>Service.Update(<#= Utils.FirstLetterToLower(tableName) #>ToBeUpdated, <#= Utils.FirstLetterToLower(tableName) #>, access_token);
+
+            var updated<#= tableName #> = await _<#= Utils.FirstLetterToLower(tableName) #>Service.GetFullById(id);
+
+            var updateResponse = _mapper.Map<Core.Models.<#= tableName #>, Response.Read.<#= tableName #>Item>(updated<#= tableName #>);
+
+            return Ok(updateResponse);
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            if (id == 0)
+                return BadRequest();
+
+            var <#= Utils.FirstLetterToLower(tableName) #> = await _<#= Utils.FirstLetterToLower(tableName) #>Service.GetById(id);
+
+            if (<#= Utils.FirstLetterToLower(tableName) #> == null)
+                return NotFound();
+
+            var access_token = await HttpContext.GetTokenAsync("access_token");
+
+            await _<#= Utils.FirstLetterToLower(tableName) #>Service.Delete(<#= Utils.FirstLetterToLower(tableName) #>, access_token);
+
+            return NoContent();  
+        } 
+    } 
+}
+
+<#@ template language="C#" #> 
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="T4CodeGenerator.MSSQL2CSHARP.Database" #>
+<#@ import namespace="T4CodeGenerator.MSSQL2CSHARP.Helpers" #>
